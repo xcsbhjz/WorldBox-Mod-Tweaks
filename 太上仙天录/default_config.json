@@ -1,0 +1,211 @@
+{
+  "ConfigItems": [
+    {
+      "Id": "XianTu_config_limit_lianqi",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitLianQiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_zhuji",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitZhuJiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_jindan",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitJinDanCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_yingyuan",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitYingYuanCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_huashen",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitHuaShenCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_heti",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitHeTiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_dacheng",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitDaChengCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_banxian",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitBanXianCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_xianjing",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitXianJingCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_daozu",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitDaoZuCallBack"
+    },
+    
+    {
+      "Id": "XianTu_config_limit_wudaolianpi",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoLianPiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaoduangu",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoDuanGuCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaohuanxue",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoHuanXueCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaolianzang",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoLianZangCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaotianren",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoTianRenCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaoshenyou",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoShenYouCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaotaxu",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoTaXuCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaomingwo",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoMingWoCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaoshanhai",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoShanHaiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaoshengqu",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoShengQuCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaozhengdi",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoZhengDiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaozunzhi",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoZunZhiCallBack"
+    },
+    {
+      "Id": "XianTu_config_limit_wudaodijing",
+      "Type": "SWITCH",
+      "BoolVal": false,
+      "Callback": "XianTuConfig:LimitWuDaoDiJingCallBack"
+    },
+    
+    {
+      "Id": "XianTu_config_auto_collect_huashen",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectHuaShenCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_heti",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectHeTiCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_dacheng",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectDaChengCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_banxian",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectBanXianCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_xianjing",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectXianJingCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_daozu",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectDaoZuCallBack"
+    },
+    
+    {
+      "Id": "XianTu_config_auto_collect_wudaoshanhai",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectWuDaoShanHaiCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_wudaoshengqu",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectWuDaoShengQuCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_wudaozhengdi",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectWuDaoZhengDiCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_wudaozunzhi",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectWuDaoZunZhiCallBack"
+    },
+    {
+      "Id": "XianTu_config_auto_collect_wudaodijing",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "XianTuConfig:AutoCollectWuDaoDiJingCallBack"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+C:\Users\34772\Desktop\0.50.6+太一修仙\obj\Debug\net6.0\InterestingTrait.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\34772\Desktop\0.50.6+太一修仙\obj\Debug\net6.0\InterestingTrait.AssemblyInfoInputs.cache
+C:\Users\34772\Desktop\0.50.6+太一修仙\obj\Debug\net6.0\InterestingTrait.AssemblyInfo.cs
+C:\Users\34772\Desktop\0.50.6+太一修仙\obj\Debug\net6.0\InterestingTrait.csproj.CoreCompileInputs.cache
+c:\Users\34772\Desktop\0.51+太上仙天录\0.51+太上仙天录\obj\Debug\net6.0\InterestingTrait.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\34772\Desktop\0.51+太上仙天录\0.51+太上仙天录\obj\Debug\net6.0\InterestingTrait.AssemblyInfoInputs.cache
+c:\Users\34772\Desktop\0.51+太上仙天录\0.51+太上仙天录\obj\Debug\net6.0\InterestingTrait.AssemblyInfo.cs
+c:\Users\34772\Desktop\0.51+太上仙天录\0.51+太上仙天录\obj\Debug\net6.0\InterestingTrait.csproj.CoreCompileInputs.cache
+c:\Users\34772\Desktop\太一修仙\0.51+太上仙天录(法器分组失败)\obj\Debug\net6.0\InterestingTrait.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\34772\Desktop\太一修仙\0.51+太上仙天录(法器分组失败)\obj\Debug\net6.0\InterestingTrait.AssemblyInfoInputs.cache
+c:\Users\34772\Desktop\太一修仙\0.51+太上仙天录(法器分组失败)\obj\Debug\net6.0\InterestingTrait.AssemblyInfo.cs
+c:\Users\34772\Desktop\太一修仙\0.51+太上仙天录(法器分组失败)\obj\Debug\net6.0\InterestingTrait.csproj.CoreCompileInputs.cache

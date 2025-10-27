@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "jqJtbo1mUuY=",
+  "success": true,
+  "projectFilePath": "c:\\Users\\34772\\Desktop\\太一修仙\\0.51+太上仙天录(法器分组失败)\\InterestingTrait.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\34772\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\34772\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\34772\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}
