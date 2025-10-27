@@ -290,7 +290,7 @@ public class WudaoPromotion
         float qiXue = actor.GetQiXue();
         
         // 检查是否可以晋升炼皮（TyWudao1）- 已有更高境界则跳过
-        if (!actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 10f)
+        if (!actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 10f && !XianTuConfig.LimitWuDaoLianPi)
         {
             // 只要气血达到10点，就自动晋升为后天武者
             actor.addTrait("TyWudao1", false);
@@ -299,7 +299,7 @@ public class WudaoPromotion
         }
         
         // 检查是否可以晋升锻骨（TyWudao2）- 已有更高境界则跳过
-        if (actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 50f)
+        if (actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 50f && !XianTuConfig.LimitWuDaoDuanGu)
         {
             // 消耗50点气血
             actor.ChangeQiXue(-50f);
@@ -338,7 +338,7 @@ public class WudaoPromotion
         }
         
         // 检查是否可以晋升炼脏（TyWudao3）- 已有更高境界则跳过
-        if (actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 150f)
+        if (actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 150f && !XianTuConfig.LimitWuDaoHuanXue)
         {
             // 消耗100点气血
             actor.ChangeQiXue(-15f);
@@ -377,7 +377,7 @@ public class WudaoPromotion
         }
 
         // 检查是否可以晋升武道大宗师（TyWudao4）- 已有更高境界则跳过
-        if (actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 250f)
+        if (actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 250f && !XianTuConfig.LimitWuDaoLianZang)
         {
             // 消耗50点气血
             actor.ChangeQiXue(-25f);
