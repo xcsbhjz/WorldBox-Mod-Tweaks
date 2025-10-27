@@ -1,0 +1,42 @@
+{
+    "WarRule": [
+        {
+            "Id": "CitySurrender",
+            "Type": "SWITCH",
+            "BoolVal": true,
+            "Callback": "ModConfigHelper:SwitchWarRuleCitySurrender"
+        },
+        {
+            "Id": "LimitTraitGain",
+            "Type": "SWITCH",
+            "BoolVal": false,
+            "Callback": "ModConfigHelper:SwitchWarRuleLimitTraitGain"
+        }
+    ],
+    "CultiRule": [
+        {
+            "Id": "KillExpK",
+            "Type": "SLIDER",
+            "FloatVal": 0.2,
+            "MinFloatVal": 0,
+            "MaxFloatVal": 1,
+            "Callback": "ModConfigHelper:SetKillExpK"
+        },
+        {
+            "Id": "TalentMultiplier",
+            "Type": "SLIDER",
+            "FloatVal": 1,
+            "MinFloatVal": 0,
+            "MaxFloatVal": 1,
+            "Callback": "ModConfigHelper:SetTalentMultiplier"
+        }
+    ],
+    "WeaponRule": [
+        {
+            "Id": "NoDurabilityLoss",
+            "Type": "SWITCH",
+            "BoolVal": true,
+            "Callback": "ModConfigHelper:SwitchWeaponNoDurabilityLoss"
+        }
+    ]
+}

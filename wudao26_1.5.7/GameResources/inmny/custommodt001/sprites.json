@@ -1,0 +1,17 @@
+{
+    "Default": {
+        "PivotX": 0.5,
+        "PivotY": 0.5
+    },
+    "Specific": [
+        {
+            "Path": "white_slice.png",
+            "PivotX": 0.5,
+            "PivotY": 0.5,
+            "BorderB": 5,
+            "BorderL": 6,
+            "BorderR": 6,
+            "BorderT": 5
+        }
+    ]
+}

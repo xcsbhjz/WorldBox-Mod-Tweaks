@@ -1,0 +1,11 @@
+{
+    "name": "特质武道26境魔改版",
+    "author": "原版：末影大黑&一米      nekosaikou魔改",
+    "version": "1.5.7",
+    "description": "",
+    "iconPath": "icon.png",
+    "GUID": "INMNY_CUSTOMMODT001",
+    "OptionalDependencies": [
+        "CULTIWAY"
+    ]
+}
