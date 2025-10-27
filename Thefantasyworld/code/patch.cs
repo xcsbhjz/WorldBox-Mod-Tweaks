@@ -26,7 +26,10 @@ namespace PeerlessThedayofGodswrath.code
 
         public static Dictionary<string, float> traitsAndRatios = new Dictionary<string, float>
         {
-            "occupation", 1f,
+            {"OrderofBeing1", 0.1f},
+            {"OrderofBeing2", 0.2f},
+            {"OrderofBeing3", 0.3f},
+            {"OrderofBeing4", 0.4f},
         };
 
         [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
@@ -113,7 +116,7 @@ namespace PeerlessThedayofGodswrath.code
             if (basicRaces.Contains(__instance.asset.id) || __instance.asset.id.StartsWith("civ_"))
             {
                 // 4岁时获得随机特质
-                if (Mathf.FloorToInt(age) == 400000000 && !hasTalent6 &&
+                if (Mathf.FloorToInt(age) == 4000000 && !hasTalent6 &&
                 !HasAnyFlairTalen(__instance) &&
                 Randy.randomChance(1f))
                 {
