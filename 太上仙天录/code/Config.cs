@@ -189,7 +189,7 @@ namespace InterestingTrait.code.Config
         {
             LimitWuDaoLianZang = newValue;
         }
-        
+      
         public static void LimitWuDaoTianRenCallBack(bool newValue)
         {
             LimitWuDaoTianRen = newValue;

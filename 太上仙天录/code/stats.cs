@@ -37,7 +37,7 @@ namespace XianTu.code
             Dodge.id = "Dodge"; // 闪避率
             Dodge.normalize = true;
             Dodge.normalize_min = 0;
-            Dodge.normalize_max = 99999;
+            Dodge.normalize_max = 999999;
             Dodge.used_only_for_civs = false;
             AssetManager.base_stats_library.add(Dodge);
 
@@ -45,7 +45,7 @@ namespace XianTu.code
             Accuracy.id = "Accuracy"; // 命中率
             Accuracy.normalize = true;
             Accuracy.normalize_min = 0;
-            Accuracy.normalize_max = 99999;
+            Accuracy.normalize_max = 999999;
             Accuracy.used_only_for_civs = false;
             AssetManager.base_stats_library.add(Accuracy);
 

@@ -16,42 +16,86 @@ using System.Text;
 using System.Reflection;
 using ReflectionUtility;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Timers;
 
 namespace PeerlessThedayofGodswrath.code
 {
     internal class patch
     {
 
-        public static string[] traits =
+        public static Dictionary<string, float> traitsAndRatios = new Dictionary<string, float>
         {
-            "occupation",
+            "occupation", 1f,
         };
 
         [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
         private static void newMechanism(Actor __instance, Actor pDeadUnit)
         {
-            foreach (string trait in traits)
+            float highestRatio = 0f;
+            bool hasFound = false;
+
+            // 先检查是否具有相同特质，并找出最高比例
+            foreach (var traitRatio in traitsAndRatios)
             {
-                if (pDeadUnit.hasTrait(trait) && __instance.hasTrait(trait))
+                string trait = traitRatio.Key;
+                float baseRatio = traitRatio.Value;
+
+                if (HasAnyLevelOfTrait(pDeadUnit, trait) && HasAnyLevelOfTrait(__instance, trait))
                 {
-                    float deadUnitcareerexperience = pDeadUnit.Getcareerexperience();
-                    float additionalWuLi = deadUnitcareerexperience * UnityEngine.Random.Range(0.1f, 0.1f);
-                    __instance.Changecareerexperience(additionalWuLi);
-                }
-                else
-                {
-                    // 检查交叉特质
-                    foreach (string otherTrait in traits)
+                    if (baseRatio > highestRatio)
                     {
-                        if (trait != otherTrait && pDeadUnit.hasTrait(trait) && __instance.hasTrait(otherTrait))
+                        highestRatio = baseRatio;
+                        hasFound = true;
+                    }
+                }
+            }
+
+            // 如果没有找到相同特质匹配，则检查交叉特质
+            if (!hasFound)
+            {
+                foreach (var traitRatio in traitsAndRatios)
+                {
+                    string trait = traitRatio.Key;
+                    float baseRatio = traitRatio.Value;
+
+                    foreach (var otherTraitRatio in traitsAndRatios)
+                    {
+                        if (trait != otherTraitRatio.Key && HasAnyLevelOfTrait(pDeadUnit, trait) && HasAnyLevelOfTrait(__instance, otherTraitRatio.Key))
                         {
-                            float deadUnitcareerexperience = pDeadUnit.Getcareerexperience();
-                            float additionalWuLi = deadUnitcareerexperience * UnityEngine.Random.Range(0.1f, 0.1f);
-                            __instance.Changecareerexperience(additionalWuLi);
+                            float crossRatio = Math.Min(baseRatio, otherTraitRatio.Value);
+                            if (crossRatio > highestRatio)
+                            {
+                                highestRatio = crossRatio;
+                                hasFound = true;
+                            }
                         }
                     }
                 }
             }
+
+            // 如果找到匹配的特质，应用最高掠夺比例
+            if (hasFound && highestRatio > 0f)
+            {
+                float deadUnitcareerexperience = pDeadUnit.Getcareerexperience();
+                float additionalWuLi = deadUnitcareerexperience * highestRatio;
+                __instance.Changecareerexperience(additionalWuLi);
+            }
+        }
+
+        // 辅助方法：检查角色是否拥有指定特质的任意等级
+        private static bool HasAnyLevelOfTrait(Actor actor, string traitBaseName)
+        {
+            // 检查基础特质
+            if (actor.hasTrait(traitBaseName)) return true;
+
+            // 检查带等级的特质（例如pastor1, pastor2等）
+            for (int i = 1; i <= 7; i++)
+            {
+                if (actor.hasTrait($"{traitBaseName}{i}")) return true;
+            }
+
+            return false;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(Actor), "updateAge")]
         public static void updateWorldTime_KnightPostfix(Actor __instance)
@@ -111,7 +155,7 @@ namespace PeerlessThedayofGodswrath.code
                 { "RankTalentst2", (2f, 4f) },
                 { "RankTalentst3", (4f, 6f) },
                 { "RankTalentst4", (6f, 8f) },
-                { "RankTalentst5", (8f, 10f) }
+                { "RankTalentst5", (8f, 10f) },
             };
 
             foreach (var change in talentKnightChanges)
@@ -161,463 +205,8 @@ namespace PeerlessThedayofGodswrath.code
             return false;
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(BaseSimObject), nameof(BaseSimObject.changeHealth))]
-        public static void MultiTenacityTrait_ChangeHealth(BaseSimObject __instance, ref int pValue)
-        {
-            if (__instance is Actor actor && pValue < 0)
-            {
-                if (HasProtectedTrait(actor))
-                {
-                    // 1. 特质减伤逻辑
-                    float traitReductionMultiplier = GetTraitDamageReduction(actor);
-                    if (traitReductionMultiplier > 0)
-                    {
-                        int damageAmount = Math.Abs(pValue);
-                        int traitReduction = (int)(damageAmount * traitReductionMultiplier);
-                        pValue += traitReduction;
-                        
-                        // 如果伤害已经被特质减伤到0或以上，则直接返回
-                        if (pValue >= 0)
-                        {
-                            return;
-                        }
-                    }
-
-                    if (actor.stats.hasStat("MagicShield"))
-                    {
-                        int damageAmount = Math.Abs(pValue);
-                        float trueDamageShield = actor.stats["MagicShield"];
-                        int shieldReduction = Math.Min((int)trueDamageShield, damageAmount);
-
-                        if (shieldReduction > 0)
-                        {
-                            pValue += shieldReduction;
-
-                            if (pValue >= 0)
-                            {
-                                return;
-                            }
-                        }
-                    }
-
-                    int currentMana = actor.data.mana;
-
-                    if (currentMana > 0)
-                    {
-                        int damageAmount = Math.Abs(pValue);
-
-                        float magicApplication = 1.0f;
-                        if (actor.stats.hasStat("MagicApplication"))
-                        {
-                            magicApplication = actor.stats["MagicApplication"];
-                        }
-                        int manaToSpend = Math.Min(currentMana, (int)(damageAmount / magicApplication));
-
-                        if (manaToSpend > 0)
-                        {
-                            int damageReduction = (int)(manaToSpend * magicApplication);
-                            actor.spendMana(manaToSpend);
-                            pValue += damageReduction;
-                        }
-                    }
-                }
-            }
-        }
-        
-        // 获取法师职业的伤害减免倍率
-        private static float GetEnchanterReduction(Actor actor)
-        {
-            if (actor.hasTrait("enchanter5")) return 0.8f; 
-            if (actor.hasTrait("enchanter4")) return 0.4f; 
-            if (actor.hasTrait("enchanter3")) return 0.2f;
-            if (actor.hasTrait("enchanter2")) return 0.2f;
-            if (actor.hasTrait("enchanter1")) return 0.2f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取牧师职业的伤害减免倍率
-        private static float GetPastorReduction(Actor actor)
-        {
-            if (actor.hasTrait("pastor5")) return 0.48f;
-            if (actor.hasTrait("pastor4")) return 0.24f; 
-            if (actor.hasTrait("pastor3")) return 0.12f;
-            if (actor.hasTrait("pastor2")) return 0.12f;
-            if (actor.hasTrait("pastor1")) return 0.12f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取骑士职业的伤害减免倍率
-        private static float GetKnightReduction(Actor actor)
-        {
-            if (actor.hasTrait("knight5")) return 0.7f;
-            if (actor.hasTrait("knight4")) return 0.36f; 
-            if (actor.hasTrait("knight3")) return 0.18f;
-            if (actor.hasTrait("knight2")) return 0.18f;
-            if (actor.hasTrait("knight1")) return 0.18f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取战士职业的伤害减免倍率
-        private static float GetWarriorReduction(Actor actor)
-        {
-            if (actor.hasTrait("valiantgeneral5")) return 0.4f; 
-            if (actor.hasTrait("valiantgeneral4")) return 0.2f; 
-            if (actor.hasTrait("valiantgeneral3")) return 0.1f;
-            if (actor.hasTrait("valiantgeneral2")) return 0.1f;
-            if (actor.hasTrait("valiantgeneral1")) return 0.1f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取射手职业的伤害减免倍率
-        private static float GetShooterReduction(Actor actor)
-        {
-            if (actor.hasTrait("shooter5")) return 0.32f;
-            if (actor.hasTrait("shooter4")) return 0.16f; 
-            if (actor.hasTrait("shooter3")) return 0.08f;
-            if (actor.hasTrait("shooter2")) return 0.08f;
-            if (actor.hasTrait("shooter1")) return 0.08f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取刺客职业的伤害减免倍率
-        private static float GetAssassinReduction(Actor actor)
-        {
-            if (actor.hasTrait("assassin5")) return 0.24f; 
-            if (actor.hasTrait("assassin4")) return 0.12f; 
-            if (actor.hasTrait("assassin3")) return 0.06f;
-            if (actor.hasTrait("assassin2")) return 0.06f;
-            if (actor.hasTrait("assassin1")) return 0.06f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 主方法：获取角色的特质伤害减免倍率
-        private static float GetTraitDamageReduction(Actor actor)
-        {
-            if (actor == null) return 0f;
-
-            // 依次检查各个职业的减伤倍率
-            float reduction;
-
-            reduction = GetEnchanterReduction(actor);
-            if (reduction >= 0f) return reduction;
-
-            reduction = GetPastorReduction(actor);
-            if (reduction >= 0f) return reduction;
-
-            reduction = GetKnightReduction(actor);
-            if (reduction >= 0f) return reduction;
-
-            reduction = GetWarriorReduction(actor);
-            if (reduction >= 0f) return reduction;
-
-            reduction = GetShooterReduction(actor);
-            if (reduction >= 0f) return reduction;
-
-            reduction = GetAssassinReduction(actor);
-            if (reduction >= 0f) return reduction;
-
-            // 默认无减伤
-            return 0f;
-        }
-        
-
-        // 获取法师职业的伤害倍率
-        private static float GetEnchanterMultiplier(Actor actor)
-        {
-            if (actor.hasTrait("enchanter5")) return 1.2f;
-            if (actor.hasTrait("enchanter4")) return 0.8f;  // 魔法攻击型，高倍率
-            if (actor.hasTrait("enchanter3")) return 0.6f;
-            if (actor.hasTrait("enchanter2")) return 0.6f;
-            if (actor.hasTrait("enchanter1")) return 0.6f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取牧师职业的伤害倍率
-        private static float GetPastorMultiplier(Actor actor)
-        {
-            if (actor.hasTrait("pastor5")) return 0.3f;
-            if (actor.hasTrait("pastor4")) return 0.2f;  // 辅助型，低倍率
-            if (actor.hasTrait("pastor3")) return 0.15f;
-            if (actor.hasTrait("pastor2")) return 0.15f;
-            if (actor.hasTrait("pastor1")) return 0.15f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取骑士职业的伤害倍率
-        private static float GetKnightMultiplier(Actor actor)
-        {
-            if (actor.hasTrait("knight5")) return 0.6f;
-            if (actor.hasTrait("knight4")) return 0.5f;  // 防御型，较低倍率
-            if (actor.hasTrait("knight3")) return 0.3f;
-            if (actor.hasTrait("knight2")) return 0.3f;
-            if (actor.hasTrait("knight1")) return 0.23f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取战士职业的伤害倍率
-        private static float GetWarriorMultiplier(Actor actor)
-        {
-            if (actor.hasTrait("valiantgeneral5")) return 0.7f;
-            if (actor.hasTrait("valiantgeneral4")) return 0.55f;  // 平衡型，中等倍率
-            if (actor.hasTrait("valiantgeneral3")) return 0.35f;
-            if (actor.hasTrait("valiantgeneral2")) return 0.35f;
-            if (actor.hasTrait("valiantgeneral1")) return 0.35f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取射手职业的伤害倍率
-        private static float GetShooterMultiplier(Actor actor)
-        {
-            if (actor.hasTrait("shooter5")) return 0.8f;
-            if (actor.hasTrait("shooter4")) return 0.6f;  // 远程攻击型，中高倍率
-            if (actor.hasTrait("shooter3")) return 0.4f;
-            if (actor.hasTrait("shooter2")) return 0.4f;
-            if (actor.hasTrait("shooter1")) return 0.4f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 获取刺客职业的伤害倍率
-        private static float GetAssassinMultiplier(Actor actor)
-        {
-            if (actor.hasTrait("assassin5")) return 1f;  // 高爆发型，高倍率
-            if (actor.hasTrait("assassin4")) return 0.7f;
-            if (actor.hasTrait("assassin3")) return 0.5f;
-            if (actor.hasTrait("assassin2")) return 0.5f;
-            if (actor.hasTrait("assassin1")) return 0.5f;
-            return -1f; // 没有该职业特质
-        }
-
-        // 主方法：获取角色的伤害倍率
-        private static float GetSwordImmortalMultiplier(Actor actor)
-        {
-            if (actor == null) return 1f;
-
-            // 依次检查各个职业的倍率
-            float multiplier;
-
-            multiplier = GetEnchanterMultiplier(actor);
-            if (multiplier >= 0f) return multiplier;
-
-            multiplier = GetPastorMultiplier(actor);
-            if (multiplier >= 0f) return multiplier;
-
-            multiplier = GetKnightMultiplier(actor);
-            if (multiplier >= 0f) return multiplier;
-
-            multiplier = GetWarriorMultiplier(actor);
-            if (multiplier >= 0f) return multiplier;
-
-            multiplier = GetShooterMultiplier(actor);
-            if (multiplier >= 0f) return multiplier;
-
-            multiplier = GetAssassinMultiplier(actor);
-            if (multiplier >= 0f) return multiplier;
-
-            // 默认倍率
-            return 1f;
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(Actor), "getHit")]
-        [HarmonyPriority(Priority.First)]
-        public static bool SwordImmortal_actorGetHit_prefix(
-            Actor __instance,
-            ref float pDamage,
-            bool pFlash,
-            AttackType pAttackType,
-            BaseSimObject pAttacker,
-            bool pSkipIfShake,
-            bool pMetallicWeapon)
-        {
-            // 设置最后攻击类型和攻击者信息
-            __instance._last_attack_type = pAttackType;
-            __instance.attackedBy = null;
-            if (pAttacker != null && !pAttacker.isRekt() && pAttacker != __instance)
-                __instance.attackedBy = pAttacker;
-
-            // 闪避系统
-            if (pAttacker is Actor attackerActor && __instance.isAlive())
-            {
-                float attackerhitthetarget = attackerActor.stats["hitthetarget"];
-                float targetDodgeEvade = __instance.stats["DodgeEvade"];
-                float effectiveDodgeEvade = Mathf.Clamp(targetDodgeEvade - attackerhitthetarget, 0f, 100f);
-
-                if (Randy.randomChance(effectiveDodgeEvade / 100f))
-                {
-                    __instance.startColorEffect(ActorColorEffect.White);
-                    return false;
-                }
-            }
-
-            // 检查攻击者是否存在且有效
-            if (pAttacker != null && pAttacker.a != null && pAttacker.a.stats != null)
-            {
-                Actor attacker = pAttacker.a;
-                // 获取攻击者伤害属性
-                float damage = attacker.stats["damage"];
-
-                // 获取攻击者特质倍率
-                float attackerMultiplier = GetSwordImmortalMultiplier(attacker);
-
-                // 只有拥有特质时才进行特殊伤害计算
-                if (attackerMultiplier >= 0f)
-                {
-                    // 简化计算：只保留伤害属性乘特质倍率
-                    double calc = (double)damage * (double)attackerMultiplier;
-
-                    // 安全阈值处理
-                    if (calc > int.MaxValue) calc = int.MaxValue;
-                    if (calc < 0) calc = 0;
-
-                    int magicDamage = (int)calc; // <1 会变成 0
-
-                    // 实际造成伤害
-                    __instance.changeHealth(-magicDamage);
-                    __instance.timer_action = 0.002f;
-
-                    if (pFlash) __instance.startColorEffect(ActorColorEffect.Red);
-                    __instance.startShake(0.3f, 0.1f, true, true);
-
-                    // 检查单位是否死亡
-                    if (!__instance.hasHealth())
-                    {
-                        __instance.batch.c_check_deaths.Add(__instance);
-                        __instance.checkCallbacksOnDeath();
-                    }
-                }
-            }
-            return true;
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(Actor), nameof(Actor.calculateForce))]
-        public static bool CalculateForce_Protection(Actor __instance, float pStartX, float pStartY, float pTargetX, float pTargetY, float pForceAmountDirection, float pForceHeight = 0f, bool pCheckCancelJobOnLand = false)
-        {
-            return !HasProtectedTrait(__instance);
-        }
-
-
-        [HarmonyPrefix, HarmonyPatch(typeof(Actor), nameof(Actor.applyRandomForce))]
-        public static bool ApplyRandomForce_Protection(Actor __instance, float pMinHeight = 1.5f, float pMaxHeight = 2f)
-        {
-            return !HasProtectedTrait(__instance);
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(Actor), nameof(Actor.makeSleep))]
-        public static bool MakeSleep_Protection(Actor __instance, float pTime)
-        {
-            return !HasProtectedTrait(__instance);
-        }
-
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(Actor), nameof(Actor.makeStunned))]
-        public static bool MakeStunned_Protection(Actor __instance, float pTime = 5f)
-        {
-            return !HasProtectedTrait(__instance);
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(Actor), nameof(Actor.addInjuryTrait))]
-        private static bool PreventInjuryForProtectedTraits(Actor __instance, string pTraitID)
-        {
-            if (HasProtectedTrait(__instance) && (pTraitID == "crippled" || pTraitID == "eyepatch"))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(Actor), nameof(Actor.addStatusEffect), typeof(StatusAsset), typeof(float), typeof(bool))]
-        public static bool AddStatusEffect_Protection(Actor __instance, StatusAsset pStatusAsset, float pOverrideTimer = 0f, bool pColorEffect = true)
-        {
-            if (pStatusAsset.id == "surprised" || pStatusAsset.id == "stunned" || pStatusAsset.id == "sleeping")
-            {
-                return !HasProtectedTrait(__instance);
-            }
-            return true;
-        }
-
-        // 锁定特定特质的耐力为最大值
-        [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.updateStamina))]
-        public static void LockStaminaForSpecialTrait(Actor __instance)
-        {
-            // 拥有受保护特质时，耐力锁定为最大值
-            if (HasProtectedTrait(__instance))
-            {
-                __instance.setStamina(__instance.getMaxStamina(), true);
-            }
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(BehFinishReading), "checkSpecialBookRewards")]
-        private static bool BehFinishReading_checkSpecialBookRewards_Prefix(Actor pActor, Book pBook)
-        {
-            // 检查角色是否有受保护的职业特质
-            if (HasProtectedTrait(pActor))
-            {
-                // 如果角色有受保护的职业特质，跳过所有混乱类语言特质的触发
-                foreach (LanguageTrait tTrait in pBook.getLanguage().getTraits())
-                {
-                    if (tTrait.group_id == "chaos" && tTrait.read_book_trait_action != null)
-                    {
-                        // 有受保护的职业特质，不执行混乱类特质的动作
-                        continue;
-                    }
-
-                    // 非混乱类特质正常执行
-                    if (tTrait.read_book_trait_action != null)
-                    {
-                        tTrait.read_book_trait_action(pActor, tTrait, pBook);
-                    }
-                }
-
-                // 跳过原始方法
-                return false;
-            }
-
-            // 没有受保护的职业特质，继续执行原始方法
-            return true;
-        }
-
-        // 为氏族特质死亡束缚特质添加职业特质保护检查
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(BehClanChiefCheckMembersToKill), "execute")]
-        private static bool BehClanChiefCheckMembersToKill_execute_Prefix(Actor pActor, ref BehResult __result)
-        {
-            // 检查角色是否有受保护的职业特质
-            if (HasProtectedTrait(pActor))
-            {
-                // 如果角色有受保护的职业特质，跳过氏族特质死亡束缚特质的执行
-                __result = BehResult.Continue;
-                return false;
-            }
-
-            // 没有受保护的职业特质，继续执行原始方法
-            return true;
-        }
-
-        private static readonly HashSet<string> ProtectedQWE = new()
-        {
-            // 法师特质
-            "enchanter1","enchanter2","enchanter3","enchanter4","enchanter5",
-            // 牧师特质
-            "pastor1","pastor2","pastor3","pastor4","pastor5",
-            // 骑士特质
-            "knight1","knight2","knight3","knight4","knight5",
-            // 战士特质
-            "valiantgeneral1","valiantgeneral2","valiantgeneral3","valiantgeneral4","valiantgeneral5",
-            // 射手特质
-            "shooter1","shooter2","shooter3","shooter4","shooter5",
-            // 刺客特质
-            "assassin1","assassin2","assassin3","assassin4","assassin5"
-        };
-        private static bool HasProtectedTrait(Actor actor)
-        {
-            if (actor == null) return false;
-            return ProtectedQWE.Any(trait => actor.hasTrait(trait));
-        }
-
         [HarmonyPrefix, HarmonyPatch(typeof(Actor), nameof(Actor.checkNaturalDeath))]
-        public static bool checkNaturalDeath_Prefix(Actor __instance, ref bool __result)
+        public static bool Actor_checkNaturalDeath_Prefix(Actor __instance, ref bool __result)
         {
             if (!WorldLawLibrary.world_law_old_age.isEnabled())
             {
@@ -645,13 +234,226 @@ namespace PeerlessThedayofGodswrath.code
             float tSeverity = 5f;
             if (Randy.randomChance(Mathf.Clamp(1f / (1f + Mathf.Exp(-tSeverity * (tOverAge / tLifespan - 0.5f))), 0f, 0.9f)))
             {
-                // 改为造成最大血量100倍的伤害
+                // 改为造成最大血量10000000倍的伤害
                 float maxHealth = __instance.getMaxHealth();
-                __instance.getHit(maxHealth * 100f, true, AttackType.Age);
+                __instance.getHit(maxHealth * 10000000f, true, AttackType.Age);
                 __result = true;
                 return false;
             }
             __result = false;
+            return false;
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(MapAction), "checkLightningAction")]
+        public static bool checkLightningAction(Vector2Int pPos, int pRad, Actor pActor = null, bool pCheckForImmortal = false, bool pCheckMayIInterrupt = false)
+        {
+            bool flag = false;
+            List<Actor> simpleList = World.world.units.getSimpleList();
+            for (int i = 0; i < simpleList.Count; i++)
+            {
+                Actor actor = simpleList[i];
+                if (Toolbox.DistVec2(actor.current_tile.pos, pPos) <= (float)pRad)
+                {
+                    if (actor.asset.flag_finger)
+                    {
+                        actor.getActorComponent<GodFinger>().lightAction();
+                    }
+                    else
+                    {
+                        if (!flag && !actor.hasTrait("immortal") && Randy.randomChance(0.2f))
+                        {
+                            flag = true;
+                        }
+
+                        Achievement may_i_interrupt = AchievementLibrary.may_i_interrupt;
+                        BehaviourTaskActor task = actor.ai.task;
+                        may_i_interrupt.checkBySignal((task != null) ? task.id : null);
+                    }
+                }
+            }
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(BehDragonSleepy), nameof(BehDragonSleepy.execute))]
+        public static bool Prefix_BehDragonSleepy_execute(Actor pActor)
+        {
+            // 检查是否拥有特定特质，这里可以添加多个特质ID
+            // 如果拥有这些特质，则不积累困意值（跳过原方法）
+            if (pActor.hasTrait("Summonedcreature5"))
+            {
+                return false; // 跳过原方法，不增加困意值
+            }
+
+            return true; // 正常执行原方法
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Dragon), nameof(Dragon.landAttackTiles))]
+        public static bool PrefixLandAttackTiles(Dragon __instance, WorldTile pTile, ref HashSet<WorldTile> __result)
+        {
+            // 获取龙的角色实例
+            Actor dragonActor = __instance.actor;
+
+            // 检查是否有特定特质
+            bool hasSpecialTrait = false;
+            int rangeX = 10; // 水平范围
+            int rangeY = 12; // 垂直范围
+            float maxDistance = 9f; // 最大距离
+
+            // 根据特质调整攻击范围
+            if (dragonActor.hasTrait("Summonedcreature5")) // 龙神特质：超大范围
+            {
+                hasSpecialTrait = true;
+                rangeX = 60;
+                rangeY = 72;
+                maxDistance = 54f;
+            }
+
+            // 如果没有特殊特质，执行原方法
+            if (!hasSpecialTrait)
+            {
+                return true;
+            }
+
+            // 使用缓存机制
+            if (__instance._landAttackPosCheck == pTile)
+            {
+                __instance._landAttackCache++;
+                __result = __instance._landAttackTiles;
+                return false;
+            }
+
+            // 生成修改后的攻击范围
+            __instance._landAttackCache = 0;
+            __instance._landAttackTiles.Clear();
+            __instance._landAttackPosCheck = pTile;
+
+            for (int yy = 0; yy < rangeY; yy++)
+            {
+                for (int xx = 0; xx < rangeX * 2; xx++)
+                {
+                    WorldTile tTile = World.world.GetTile(pTile.pos.x + xx - rangeX, pTile.pos.y - yy + 1);
+                    if (tTile != null && Toolbox.Dist(pTile.pos.x, pTile.pos.y, tTile.pos.x, tTile.pos.y) <= maxDistance)
+                    {
+                        __instance._landAttackTiles.Add(tTile);
+                    }
+                }
+            }
+
+            __result = __instance._landAttackTiles;
+            return false; // 跳过原方法，使用我们的自定义结果
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Dragon), nameof(Dragon.attackRange))]
+        public static bool PrefixAttackRange(Dragon __instance, bool flip, ref HashSet<WorldTile> __result)
+        {
+            // 获取龙的角色实例
+            Actor dragonActor = __instance.actor;
+
+            // 检查是否有特定特质
+            bool hasSpecialTrait = false;
+            int rangeX = 35; // 水平范围
+            int rangeY = 4;  // 垂直范围
+            int offsetFlip = -25;  // 翻转时的偏移
+            int offsetNoFlip = 20; // 未翻转时的偏移
+            int centerOffset = 15; // 中心偏移
+            int yOffset = 2;       // Y轴偏移
+
+            // 根据特质调整攻击范围
+            if (dragonActor.hasTrait("Summonedcreature5")) // 龙神特质：超大范围
+            {
+                hasSpecialTrait = true;
+                rangeX = 210;   // 水平范围扩大
+                rangeY = 24;   // 垂直范围扩大
+                offsetFlip = -55;
+                offsetNoFlip = 50;
+                centerOffset = 45;
+                yOffset = 4;
+            }
+
+            // 如果没有特殊特质，执行原方法
+            if (!hasSpecialTrait)
+            {
+                return true;
+            }
+
+            // 使用缓存机制
+            if (flip)
+            {
+                if (__instance._slideAttackPosCheckFlip == __instance.actor.current_tile)
+                {
+                    __instance._slideAttackTilesFlipCache++;
+                    __result = __instance._slideAttackTilesFlip;
+                    return false;
+                }
+                __instance._slideAttackTilesFlipCache = 0;
+                __instance._slideAttackTilesFlip.Clear();
+                __instance._slideAttackPosCheckFlip = __instance.actor.current_tile;
+            }
+            else
+            {
+                if (__instance._slideAttackPosCheckNoFlip == __instance.actor.current_tile)
+                {
+                    __instance._slideAttackTilesNoFlipCache++;
+                    __result = __instance._slideAttackTilesNoFlip;
+                    return false;
+                }
+                __instance._slideAttackTilesNoFlipCache = 0;
+                __instance._slideAttackTilesNoFlip.Clear();
+                __instance._slideAttackPosCheckNoFlip = __instance.actor.current_tile;
+            }
+
+            // 根据朝向确定X轴偏移
+            int tXOffset = flip ? offsetFlip : offsetNoFlip;
+
+            // 生成自定义范围的攻击瓦片集合
+            for (int yy = 0; yy < rangeY; yy++)
+            {
+                for (int xx = 0; xx < rangeX; xx++)
+                {
+                    WorldTile tTile = World.world.GetTile(
+                        __instance.actor.current_tile.x + xx - centerOffset + tXOffset,
+                        __instance.actor.current_tile.y - yy + yOffset
+                    );
+                    if (tTile != null)
+                    {
+                        if (flip)
+                        {
+                            __instance._slideAttackTilesFlip.Add(tTile);
+                        }
+                        else
+                        {
+                            __instance._slideAttackTilesNoFlip.Add(tTile);
+                        }
+                    }
+                }
+            }
+
+            // 设置结果并跳过原方法
+            __result = flip ? __instance._slideAttackTilesFlip : __instance._slideAttackTilesNoFlip;
+            return false;
+        }
+
+
+        [HarmonyPrefix, HarmonyPatch(typeof(ActionLibrary), "showWhisperTip")]
+        public static bool Prefix(string pText)
+        {
+            // 自定义逻辑：显示停留时间为x秒的提示信息
+            string text = LocalizedTextManager.getText(pText, null);
+            if (Config.whisper_A != null)
+            {
+                text = text.Replace("$kingdom_A$", Config.whisper_A.name);
+            }
+            if (Config.whisper_B != null)
+            {
+                text = text.Replace("$kingdom_B$", Config.whisper_B.name);
+            }
+            WorldTip.showNow(text, false, "top", 15f);
+
+
+            // 如果不需要跳过原方法，则返回true.
             return false;
         }
     }

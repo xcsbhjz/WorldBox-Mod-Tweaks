@@ -27,12 +27,24 @@ namespace XianTu.code
         private static readonly Dictionary<string, string> _xianTuSuffixMap = new Dictionary<string, string>
 {
     {"XianTu1", "练气"},
-    {"XianTu2", "筑基"},
-    {"XianTu3", "金丹"},
-    {"XianTu4", "元婴"},
-    {"XianTu5", "化神"},
-    {"XianTu6", "合体"},
-    {"XianTu7", "大乘"},
+    {"XianTu2", "辟谷"},
+    {"DaoJi2", "筑基"},
+    {"DaoJi3", "紫府"},
+    {"XianTu3", "煞丹"},
+    {"DaoJi5", "结丹"},
+    {"DaoJi6", "金丹"},
+    {"XianTu4", "结婴"},
+    {"DaoJi9", "元婴"},
+    {"DaoJi91", "婴变"},
+    {"XianTu5", "元神"},
+    {"DaoJi95", "分神"},
+    {"DaoJi96", "化神"},
+    {"XianTu6", "洞虚"},
+    {"FaXiang2", "炼虚"},
+    {"FaXiang3", "合体"},
+    {"XianTu7", "三灾"},
+    {"FaXiang6", "九难"},
+    {"FaXiang7", "十劫"},
     {"XianTu8", "真仙"},
     {"XianTu9", "金仙"},
     {"TaiYiyinji", "太乙"},
@@ -1094,112 +1106,10 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             );
             UpdateNameSuffix(a, "XianTu2");
 
-            // 根据灵根等级以不同概率获得道基特质
+            // 突破筑基成功后只获得DaoJi1特质
             if (!a.hasTrait("DaoJi1") && !a.hasTrait("DaoJi2") && !a.hasTrait("DaoJi3") && !a.hasTrait("DaoJi4"))
             {
-                double randomValue2 = UnityEngine.Random.Range(0.0f, 1.0f);
-                double randomValue3 = UnityEngine.Random.Range(0.0f, 1.0f);
-                double randomValue4 = UnityEngine.Random.Range(0.0f, 1.0f);
-                double randomValue5 = UnityEngine.Random.Range(0.0f, 1.0f);
-                
-                // 根据不同灵根设置不同概率获得道基特质
-                if (a.hasTrait("TaiyiLg2")) // 五灵根
-                {
-                    // 20%概率获得人道筑基(DaoJi1)
-                    if (randomValue <= 0.9)
-                    {
-                        a.addTrait("DaoJi1");
-                    }
-                    else if (randomValue3 <= 1.0)
-                    {
-                        a.addTrait("DaoJi2");
-                    }
-                }
-                else if (a.hasTrait("TaiyiLg3")) // 四灵根
-                {
-                    // 30%概率获得地道筑基(DaoJi2)
-                    if (randomValue3 <= 0.3)
-                    {
-                        a.addTrait("DaoJi2");
-                    }
-                    // 20%概率获得人道筑基(DaoJi1)
-                    else if (randomValue4 <= 1.0)
-                    {
-                        a.addTrait("DaoJi1");
-                    }
-                }
-                else if (a.hasTrait("TaiyiLg4")) // 三灵根
-                {
-                    // 30%概率获得天道筑基(DaoJi3)
-                    if (randomValue5 <= 0.5)
-                    {
-                        a.addTrait("DaoJi2");
-                    }
-                    // 40%概率获得地道筑基(DaoJi2)
-                    else if (randomValue <= 1.0)
-                    {
-                        a.addTrait("DaoJi1");
-                    }
-                }
-                else if (a.hasTrait("TaiyiLg5")) // 二灵根
-                {
-                    // 40%概率获得无上道基(DaoJi4)
-                    if (randomValue4 <= 0.4)
-                    {
-                        a.addTrait("DaoJi1");
-                    }
-                    // 40%概率获得天道筑基(DaoJi3)
-                    else if (randomValue <= 0.9)
-                    {
-                        a.addTrait("DaoJi2");
-                    }
-                    else if (randomValue <= 1.0)
-                    {
-                        a.addTrait("DaoJi3");
-                    }
-                }
-                else if (a.hasTrait("TaiyiLg6")) // 单灵根
-                {
-                    // 40%概率获得无上道基(DaoJi4)
-                    if (randomValue5 <= 0.5)
-                    {
-                        a.addTrait("DaoJi2");
-                    }
-                    // 40%概率获得天道筑基(DaoJi3)
-                    else if (randomValue <= 0.9)
-                    {
-                        a.addTrait("DaoJi3");
-                    }
-                    else if (randomValue <= 1.0)
-                    {
-                        a.addTrait("DaoJi4");
-                    }
-                }
-                else if (a.hasTrait("TaiyiLg7")) // 天灵根
-                {
-                    // 40%概率获得无上道基(DaoJi4)
-                    if (randomValue3 <= 0.3)
-                    {
-                        a.addTrait("DaoJi4");
-                    }
-                    // 40%概率获得天道筑基(DaoJi3)
-                    else if (randomValue <= 0.9)
-                    {
-                        a.addTrait("DaoJi3");
-                    }
-                    else if (randomValue <= 1.0)
-                    {
-                        a.addTrait("DaoJi2");
-                    }
-                }
-                else // 没有特定灵根特质
-                {
-                    // 20%概率获得人道筑基(DaoJi1)
-                    if (randomValue3 <= 1.0)
-                {
-                    a.addTrait("DaoJi1");
-                }
-                }
+                a.addTrait("DaoJi1");
             }
 
             // 筑基期增加1~10点悟性，只增加一次
@@ -1233,6 +1143,103 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             return true;
         }
 
+        // 道基晋升逻辑 - 在筑基晋升判定之下，金丹晋升判定之上
+        public static void PromoteDaoJi(Actor a)
+        {
+            // 300真元时，将DaoJi1晋升为DaoJi2
+            if (a.GetXianTu() >= 300 && a.GetXianTu() < 600 && a.hasTrait("DaoJi1") && !a.hasTrait("DaoJi2") && !a.hasTrait("DaoJi3") && !a.hasTrait("DaoJi4"))
+            {
+                // 先消耗50真元
+                a.ChangeXianTu(-50);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.1;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.2;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.3;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.4;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.5;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.6;
+                }
+                else
+                {
+                    promotionRate = 0.1; // 默认概率
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("DaoJi1");
+                    a.addTrait("DaoJi2");
+                    UpdateNameSuffix(a, "DaoJi2");
+                }
+            }
+            // 600真元时，将DaoJi2晋升为DaoJi3
+            else if (a.GetXianTu() >= 600 && a.hasTrait("DaoJi2") && !a.hasTrait("DaoJi3") && !a.hasTrait("DaoJi4"))
+            {
+                // 先消耗100真元
+                a.ChangeXianTu(-100);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.05;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.1;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.15;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.25;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.35;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.5;
+                }
+                else
+                {
+                    promotionRate = 0.1; // 默认概率
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("DaoJi2");
+                    a.addTrait("DaoJi3");
+                    UpdateNameSuffix(a, "DaoJi3");
+                }
+            }
+        }
+
         public static bool XianTu3_effectAction(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget == null)
@@ -1246,6 +1253,8 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             Actor a = pTarget.a;
+            // 在金丹晋升判定前先进行道基晋升判定
+            PromoteDaoJi(a);
 
             if (a.GetXianTu() <= 999.99)
             {
@@ -1265,23 +1274,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 return false;
             }
 
-            a.ChangeXianTu(-500);
+            a.ChangeXianTu(-999);
             double successRate = 0.2;
-            if (a.hasTrait("DaoJi1"))
+            if (a.hasTrait("DaoJi3"))
             {
                 successRate = 0.1;
             }
-            else if (a.hasTrait("DaoJi2"))
-            {
-                successRate = 0.2;
-            }
-            else if (a.hasTrait("DaoJi3"))
-            {
-                successRate = 0.3;
-            }
             else if (a.hasTrait("DaoJi4"))
             {
-                successRate = 0.4;
+                successRate = 0.2;
             }
             
             // 检查是否拥有化金丹，增加40%成功率
@@ -1370,6 +1371,17 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 {
                     LeiJieMechanism.TriggerJinDanToYuanYingLeiJie(a);
                 }
+                // 突破失败，删除DaoJi3，添加DaoJi4
+                if (a.hasTrait("DaoJi3"))
+                {
+                    a.removeTrait("DaoJi3");
+                    a.addTrait("DaoJi4");
+                }
+                // 突破失败，更新后缀为虚丹
+                string currentName = a.getName();
+                int lastDashIndex = currentName.LastIndexOf('-');
+                string basePart = lastDashIndex >= 0 ? currentName.Substring(0, lastDashIndex).Trim() : currentName;
+                a.setName($"{basePart}-虚丹");
                 return false; // 随机数大于成功率，则操作失败
             }
             
@@ -1398,87 +1410,14 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             );
             UpdateNameSuffix(a, "XianTu3");
 
-            // 根据现有的道基特质以不同概率获得更高阶的道基特质
-            double randomValue6 = UnityEngine.Random.Range(0.0f, 1.0f);
-            
-            // 先检查角色拥有的道基特质类型
-            string currentDaoJiTrait = null;
-            if (a.hasTrait("DaoJi1"))
-            {
-                currentDaoJiTrait = "DaoJi1";
-            }
-            else if (a.hasTrait("DaoJi2"))
-            {
-                currentDaoJiTrait = "DaoJi2";
-            }
-            else if (a.hasTrait("DaoJi3"))
-            {
-                currentDaoJiTrait = "DaoJi3";
-            }
-            else if (a.hasTrait("DaoJi4"))
-            {
-                currentDaoJiTrait = "DaoJi4";
-            }
-            
             // 移除现有的所有道基特质
             a.removeTrait("DaoJi1");
             a.removeTrait("DaoJi2");
             a.removeTrait("DaoJi3");
             a.removeTrait("DaoJi4");
             
-            // 根据之前的道基特质类型决定新特质
-            if (currentDaoJiTrait == "DaoJi1") // 人道筑基
-            {
-                // 20%概率获得下品金丹(DaoJi5)
-                if (randomValue6 <= 0.3)
-                {
-                    a.addTrait("DaoJi6");
-                }
-                // 40%概率获得下品金丹(DaoJi5)
-                else if (randomValue6 <= 1.0)
-                {
-                    a.addTrait("DaoJi5");
-                }
-            }
-            else if (currentDaoJiTrait == "DaoJi2") // 地道筑基
-            {
-                // 30%概率获得中品金丹(DaoJi6)
-                if (randomValue6 <= 0.5)
-                {
-                    a.addTrait("DaoJi6");
-                }
-                // 40%概率获得下品金丹(DaoJi5)
-                else if (randomValue6 <= 1.0)
-                {
-                    a.addTrait("DaoJi5");
-                }
-            }
-            else if (currentDaoJiTrait == "DaoJi3") // 天道筑基
-            {
-                // 40%概率获得上品金丹(DaoJi7)
-                if (randomValue6 <= 0.4)
-                {
-                    a.addTrait("DaoJi7");
-                }
-                // 50%概率获得中品金丹(DaoJi6)
-                else if (randomValue6 <= 1.0)
-                {
-                    a.addTrait("DaoJi6");
-                }
-            }
-            else if (currentDaoJiTrait == "DaoJi4") // 无上道基
-            {
-                // 50%概率获得大道金丹(DaoJi8)
-                if (randomValue6 <= 0.5)
-                {
-                    a.addTrait("DaoJi8");
-                }
-                // 50%概率获得上品金丹(DaoJi7)
-                else
-                {
-                    a.addTrait("DaoJi7");
-                }
-            }
+            // 金丹突破成功后只获得DaoJi5特质
+            a.addTrait("DaoJi5");
 
             // 金丹期增加1~50点悟性，只增加一次
             if (!a.hasTrait("XianTu3_WuXingIncreased"))
@@ -1511,6 +1450,102 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             return true;
         }
 
+        // 金丹期道基晋升方法
+        public static void PromoteJinDanDaoJi(Actor a)
+        {
+            // 检查是否处于金丹期且持有DaoJi5或DaoJi6特质
+            if (a.hasTrait("XianTu3") && (a.hasTrait("DaoJi5") || a.hasTrait("DaoJi6")))
+            {
+                // 3000真元时，尝试将DaoJi5晋升为DaoJi6
+                if (a.GetXianTu() >= 3000 && !a.hasTrait("DaoJi6") && !a.hasTrait("DaoJi7"))
+                {
+                    // 先消耗50真元
+                    a.ChangeXianTu(-1000);
+                    
+                    double successRate = 0.0;
+                    
+                    // 根据灵根类型确定晋升概率
+                    if (a.hasTrait("TaiyiLg2")) // 五灵根
+                    {
+                        successRate = 0.1;
+                    }
+                    else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                    {
+                        successRate = 0.2;
+                    }
+                    else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                    {
+                        successRate = 0.3;
+                    }
+                    else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                    {
+                        successRate = 0.4;
+                    }
+                    else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                    {
+                        successRate = 0.5;
+                    }
+                    else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                    {
+                        successRate = 0.6;
+                    }
+                    
+                    double randomValue = UnityEngine.Random.Range(0.0f, 1.0f);
+                    if (randomValue <= successRate)
+                    {
+                        a.removeTrait("DaoJi5");
+                        a.addTrait("DaoJi6");
+                        // 更新名称后缀
+                        UpdateNameSuffix(a, "DaoJi6");
+                    }
+                }
+                
+                // 6000真元时，尝试将DaoJi6晋升为DaoJi7
+                if (a.hasTrait("DaoJi6") && a.GetXianTu() >= 6000 && !a.hasTrait("DaoJi7"))
+                {
+                    // 先消耗100真元
+                    a.ChangeXianTu(-1000);
+                    
+                    double successRate = 0.0;
+                    
+                    // 根据灵根类型确定晋升概率
+                    if (a.hasTrait("TaiyiLg2")) // 五灵根
+                    {
+                        successRate = 0.05;
+                    }
+                    else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                    {
+                        successRate = 0.1;
+                    }
+                    else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                    {
+                        successRate = 0.15;
+                    }
+                    else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                    {
+                        successRate = 0.25;
+                    }
+                    else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                    {
+                        successRate = 0.35;
+                    }
+                    else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                    {
+                        successRate = 0.5;
+                    }
+                    
+                    double randomValue = UnityEngine.Random.Range(0.0f, 1.0f);
+                    if (randomValue <= successRate)
+                    {
+                        a.removeTrait("DaoJi6");
+                        a.addTrait("DaoJi7");
+                        // 更新名称后缀
+                        UpdateNameSuffix(a, "DaoJi7");
+                    }
+                }
+            }
+        }
+        
         public static bool XianTu4_effectAction(BaseSimObject pTarget, WorldTile pTile = null) 
         {
             if (pTarget == null)
@@ -1524,6 +1559,9 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             Actor a = pTarget.a;
+            
+            // 在元婴晋升判定前先进行金丹期道基晋升判定
+            PromoteJinDanDaoJi(a);
 
             if (a.GetXianTu() <= 9999.99)
             {
@@ -1543,23 +1581,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 return false;
             }
 
-            a.ChangeXianTu(-500);
+            a.ChangeXianTu(-9999);
             double successRate = 0.2;
-            if (a.hasTrait("DaoJi5"))
+            if (a.hasTrait("DaoJi7"))
             {
                 successRate = 0.1;
             }
-            else if (a.hasTrait("DaoJi6"))
-            {
-                successRate = 0.2;
-            }
-            else if (a.hasTrait("DaoJi7"))
-            {
-                successRate = 0.3;
-            }
             else if (a.hasTrait("DaoJi8"))
             {
-                successRate = 0.4;
+                successRate = 0.2;
             }
             
             // 检查是否拥有结婴丹，增加30%成功率
@@ -1643,6 +1673,16 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 {
                     LeiJieMechanism.TriggerJinDanToYuanYingLeiJie(a);
                 }
+                if (a.hasTrait("DaoJi7"))
+                {
+                    a.removeTrait("DaoJi7");
+                    a.addTrait("DaoJi8");
+                }
+                // 突破失败，更新后缀为假婴
+                string currentName = a.getName();
+                int lastDashIndex = currentName.LastIndexOf('-');
+                string basePart = lastDashIndex >= 0 ? currentName.Substring(0, lastDashIndex).Trim() : currentName;
+                a.setName($"{basePart}-假婴");
                 return false; // 随机数大于成功率，则操作失败
             }
             
@@ -1667,87 +1707,14 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             );
             UpdateNameSuffix(a, "XianTu4");
 
-            // 根据现有的金丹特质以不同概率获得元婴特质
-            double randomValue3 = UnityEngine.Random.Range(0.0f, 1.0f);
-            
-            // 先检查角色拥有的金丹特质类型
-            string currentDaoJiTrait = null;
-            if (a.hasTrait("DaoJi5"))
-            {
-                currentDaoJiTrait = "DaoJi5";
-            }
-            else if (a.hasTrait("DaoJi6"))
-            {
-                currentDaoJiTrait = "DaoJi6";
-            }
-            else if (a.hasTrait("DaoJi7"))
-            {
-                currentDaoJiTrait = "DaoJi7";
-            }
-            else if (a.hasTrait("DaoJi8"))
-            {
-                currentDaoJiTrait = "DaoJi8";
-            }
-            
             // 移除现有的所有金丹特质
             a.removeTrait("DaoJi5");
             a.removeTrait("DaoJi6");
             a.removeTrait("DaoJi7");
             a.removeTrait("DaoJi8");
             
-            // 根据之前的金丹特质类型决定元婴特质
-            if (currentDaoJiTrait == "DaoJi5") // 下品金丹
-            {
-                // 20%概率获得三寸元婴(DaoJi9)
-                if (randomValue3 <= 0.3)
-                {
-                    a.addTrait("DaoJi91");
-                }
-                // 40%概率获得三寸元婴(DaoJi9)
-                else if (randomValue3 <= 1.0)
-                {
-                    a.addTrait("DaoJi9");
-                }
-            }
-            else if (currentDaoJiTrait == "DaoJi6") // 中品金丹
-            {
-                // 30%概率获得六寸元婴(DaoJi91)
-                if (randomValue3 <= 0.5)
-                {
-                    a.addTrait("DaoJi91");
-                }
-                // 40%概率获得三寸元婴(DaoJi9)
-                else if (randomValue3 <= 1.0)
-                {
-                    a.addTrait("DaoJi9");
-                }
-            }
-            else if (currentDaoJiTrait == "DaoJi7") // 上品金丹
-            {
-                // 40%概率获得九寸元婴(DaoJi92)
-                if (randomValue3 <= 0.4)
-                {
-                    a.addTrait("DaoJi92");
-                }
-                // 50%概率获得六寸元婴(DaoJi91)
-                else if (randomValue3 <= 1.0)
-                {
-                    a.addTrait("DaoJi91");
-                }
-            }
-            else if (currentDaoJiTrait == "DaoJi8") // 大道金丹
-            {
-                // 50%概率获得不灭元婴(DaoJi93)
-                if (randomValue3 <= 0.5)
-                {
-                    a.addTrait("DaoJi93");
-                }
-                // 50%概率获得九寸元婴(DaoJi92)
-                else
-                {
-                    a.addTrait("DaoJi92");
-                }
-            }
+            // 突破成功后只获得DaoJi9特质
+            a.addTrait("DaoJi9");
 
             // 元婴期增加1~100点悟性，只增加一次
             if (!a.hasTrait("XianTu4_WuXingIncreased"))
@@ -1780,6 +1747,104 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             return true;
         }
 
+        public static void PromoteYuanYingDaoJi(Actor a)
+        {
+            // 30000真元时，将DaoJi9晋升为DaoJi91
+            if (a.GetXianTu() >= 30000 && a.GetXianTu() < 60000 && a.hasTrait("DaoJi9") && !a.hasTrait("DaoJi91") && !a.hasTrait("DaoJi92"))
+            {
+                // 先消耗5000真元
+                a.ChangeXianTu(-5000);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.05;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.1;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.15;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.25;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.35;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.5;
+                }
+                else
+                {
+                    promotionRate = 0.1; // 默认概率
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("DaoJi9");
+                    a.addTrait("DaoJi91");
+                    UpdateNameSuffix(a, "DaoJi91");
+                }
+                // 失败不返还真元
+            }
+            // 60000真元时，将DaoJi91晋升为DaoJi92
+            else if (a.GetXianTu() >= 60000 && a.hasTrait("DaoJi91") && !a.hasTrait("DaoJi92"))
+            {
+                // 先消耗10000真元
+                a.ChangeXianTu(-10000);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.025;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.05;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.075;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.125;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.175;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.25;
+                }
+                else
+                {
+                    promotionRate = 0.05; // 默认概率
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("DaoJi91");
+                    a.addTrait("DaoJi92");
+                    UpdateNameSuffix(a, "DaoJi92");
+                }
+                // 失败不返还真元
+            }
+        }
+
         public static bool XianTu5_effectAction(BaseSimObject pTarget, WorldTile pTile = null) 
         {
             if (pTarget == null)
@@ -1793,6 +1858,9 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             Actor a = pTarget.a;
+
+            // 在化神晋升判定前先进行元婴期道基晋升判定
+            PromoteYuanYingDaoJi(a);
 
             if (a.GetXianTu() <= 99999.99)
             {
@@ -1812,23 +1880,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 return false;
             }
 
-            a.ChangeXianTu(-100);
+            a.ChangeXianTu(-99999);
             double successRate = 0.2;
-            if (a.hasTrait("DaoJi9"))
+            if (a.hasTrait("DaoJi92"))
             {
                 successRate = 0.1;
             }
-            else if (a.hasTrait("DaoJi91"))
-            {
-                successRate = 0.2;
-            }
-            else if (a.hasTrait("DaoJi92"))
-            {
-                successRate = 0.3;
-            }
             else if (a.hasTrait("DaoJi93"))
             {
-                successRate = 0.4;
+                successRate = 0.2;
             }
             
             // 检查是否拥有凝神丹，增加20%成功率
@@ -1908,6 +1968,16 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 {
                     LeiJieMechanism.TriggerYuanYingToHuaShenLeiJie(a);
                 }
+                if (a.hasTrait("DaoJi92"))
+                {
+                    a.removeTrait("DaoJi92");
+                    a.addTrait("DaoJi93");
+                }
+                // 突破失败，更新后缀为出窍
+                string currentName = a.getName();
+                int lastDashIndex = currentName.LastIndexOf('-');
+                string basePart = lastDashIndex >= 0 ? currentName.Substring(0, lastDashIndex).Trim() : currentName;
+                a.setName($"{basePart}-出窍");
                 return false;
             }
             
@@ -1949,72 +2019,26 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             {
                 a.data.favorite = true;
             }
-            // 化神成功后，根据DaoJi9~93特质获得DaoJi94~97特质，并删除原有特质
+            // 化神成功后，移除所有元婴期道基特质，并只获得DaoJi94特质
             // 检查角色是否拥有DaoJi9~93特质
             if (a.hasTrait("DaoJi9"))
             {
-                // 移除原有的DaoJi9特质
                 a.removeTrait("DaoJi9");
-                
-                // 20%概率获得DaoJi94
-                float randomValue2 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue2 <= 0.3f)
-                {
-                    a.addTrait("DaoJi95");
-                }
-                else if (randomValue2 <= 1.0f)
-                {
-                    a.addTrait("DaoJi94");
-                }
             }
-            else if (a.hasTrait("DaoJi91"))
+            if (a.hasTrait("DaoJi91"))
             {
-                // 移除原有的DaoJi91特质
                 a.removeTrait("DaoJi91");
-                
-                // 30%概率获得DaoJi95，40%概率获得DaoJi94
-                float randomValue3 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue3 <= 0.5f)
-                {
-                    a.addTrait("DaoJi95");
-                }
-                else if (randomValue3 <= 1.0f)
-                {
-                    a.addTrait("DaoJi94");
-                }
             }
-            else if (a.hasTrait("DaoJi92"))
+            if (a.hasTrait("DaoJi92"))
             {
-                // 移除原有的DaoJi92特质
                 a.removeTrait("DaoJi92");
-                
-                // 40%概率获得DaoJi96，50%概率获得DaoJi95
-                float randomValue4 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue4 <= 0.4f)
-                {
-                    a.addTrait("DaoJi96");
-                }
-                else if (randomValue4 <= 1.0f)
-                {
-                    a.addTrait("DaoJi95");
-                }
             }
-            else if (a.hasTrait("DaoJi93"))
+            if (a.hasTrait("DaoJi93"))
             {
-                // 移除原有的DaoJi93特质
                 a.removeTrait("DaoJi93");
-                
-                // 50%概率获得DaoJi97，50%概率获得DaoJi96
-                float randomValue5 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue5 <= 0.5f)
-                {
-                    a.addTrait("DaoJi97");
-                }
-                else
-                {
-                    a.addTrait("DaoJi96");
-                }
             }
+            // 只添加DaoJi94特质
+            a.addTrait("DaoJi94");
             // 化神期增加1~500点悟性，只增加一次
             if (!a.hasTrait("XianTu5_WuXingIncreased"))
             {
@@ -2046,6 +2070,116 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             return true;
         }
 
+        public static void PromoteHuaShenDaoJi(Actor a)
+        {
+            // 166666真元时，将DaoJi94晋升为DaoJi95
+            if (a.GetXianTu() >= 166666 && a.GetXianTu() < 233332 && a.hasTrait("DaoJi94") && !a.hasTrait("DaoJi95") && !a.hasTrait("DaoJi96"))
+            {
+                // 先消耗部分真元
+                a.ChangeXianTu(-16666);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.025;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.05;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.075;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.125;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.175;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.25;
+                }
+                else
+                {
+                    promotionRate = 0.05; // 默认概率
+                }
+                
+                // 检查是否有天命印记，必定成功
+                if (a.hasTrait("TianDaoyinji"))
+                {
+                    promotionRate = 1.0;
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("DaoJi94");
+                    a.addTrait("DaoJi95");
+                    UpdateNameSuffix(a, "DaoJi95");
+                }
+                // 失败不返还真元
+            }
+            // 233332真元时，将DaoJi95晋升为DaoJi96
+            else if (a.GetXianTu() >= 233332 && a.hasTrait("DaoJi95") && !a.hasTrait("DaoJi96"))
+            {
+                // 先消耗部分真元
+                a.ChangeXianTu(-23333);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.0125;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.025;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.0375;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.0625;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.0875;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.125;
+                }
+                else
+                {
+                    promotionRate = 0.025; // 默认概率
+                }
+                
+                // 检查是否有天命印记，必定成功
+                if (a.hasTrait("TianDaoyinji"))
+                {
+                    promotionRate = 1.0;
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("DaoJi95");
+                    a.addTrait("DaoJi96");
+                    UpdateNameSuffix(a, "DaoJi96");
+                }
+                // 失败不返还真元
+            }
+        }
+
         public static bool XianTu6_effectAction(BaseSimObject pTarget, WorldTile pTile = null) 
         {
             if (pTarget == null)
@@ -2059,6 +2193,9 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             Actor a = pTarget.a;
+            
+            // 在合体晋升判定前先进行化神期道基晋升判定
+            PromoteHuaShenDaoJi(a);
             // 检查气血值是否小于x，如果是，则趺落境界
 
             if (a.GetXianTu() <= 299999.99)
@@ -2079,23 +2216,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 return false;
             }
 
-            a.ChangeXianTu(-5000);
+            a.ChangeXianTu(-299999);
             double successRate = 0.1;
-            if (a.hasTrait("DaoJi94"))
+            if (a.hasTrait("DaoJi96"))
             {
                 successRate = 0.05;
             }
-            else if (a.hasTrait("DaoJi95"))
-            {
-                successRate = 0.1;
-            }
-            else if (a.hasTrait("DaoJi96"))
-            {
-                successRate = 0.2;
-            }
             else if (a.hasTrait("DaoJi97"))
             {
-                successRate = 0.4;
+                successRate = 0.1;
             }
             
             // 检查是否拥有合体丹，增加15%成功率
@@ -2171,6 +2300,16 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 {
                     LeiJieMechanism.TriggerHuaShenToHeTiLeiJie(a);
                 }
+                if (a.hasTrait("DaoJi96"))
+                {
+                    a.removeTrait("DaoJi96");
+                    a.addTrait("DaoJi97");
+                }
+                // 突破失败，更新后缀为炼虚
+                string currentName = a.getName();
+                int lastDashIndex = currentName.LastIndexOf('-');
+                string basePart = lastDashIndex >= 0 ? currentName.Substring(0, lastDashIndex).Trim() : currentName;
+                a.setName($"{basePart}-返虚");
                 return false; // 随机数大于成功率，则操作失败
             }
             
@@ -2214,72 +2353,26 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 a.data.favorite = true;
             }
             
-            // 化神成功后，根据DaoJi9~93特质获得DaoJi94~97特质，并删除原有特质
-            // 检查角色是否拥有DaoJi9~93特质
+            // 合体成功后，移除所有化神期道基特质，并只获得FaXiang1特质
+            // 检查角色是否拥有DaoJi94~97特质
             if (a.hasTrait("DaoJi94"))
             {
-                // 移除原有的DaoJi9特质
                 a.removeTrait("DaoJi94");
-                
-                // 20%概率获得DaoJi94
-                float randomValue2 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue2 <= 0.3f)
-                {
-                    a.addTrait("FaXiang2");
-                }
-                else if (randomValue2 <= 1.0f)
-                {
-                    a.addTrait("FaXiang1");
-                }
             }
-            else if (a.hasTrait("DaoJi95"))
+            if (a.hasTrait("DaoJi95"))
             {
-                // 移除原有的DaoJi91特质
                 a.removeTrait("DaoJi95");
-                
-                // 30%概率获得DaoJi95，40%概率获得DaoJi94
-                float randomValue3 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue3 <= 0.5f)
-                {
-                    a.addTrait("FaXiang2");
-                }
-                else if (randomValue3 <= 1.0f)
-                {
-                    a.addTrait("FaXiang1");
-                }
             }
-            else if (a.hasTrait("DaoJi96"))
+            if (a.hasTrait("DaoJi96"))
             {
-                // 移除原有的DaoJi92特质
                 a.removeTrait("DaoJi96");
-                
-                // 40%概率获得DaoJi96，50%概率获得DaoJi95
-                float randomValue4 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue4 <= 0.4f)
-                {
-                    a.addTrait("FaXiang3");
-                }
-                else if (randomValue4 <= 1.0f)
-                {
-                    a.addTrait("FaXiang2");
-                }
             }
-            else if (a.hasTrait("DaoJi97"))
+            if (a.hasTrait("DaoJi97"))
             {
-                // 移除原有的DaoJi93特质
                 a.removeTrait("DaoJi97");
-                
-                // 50%概率获得DaoJi97，50%概率获得DaoJi96
-                float randomValue5 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue5 <= 0.5f)
-                {
-                    a.addTrait("FaXiang3");
-                }
-                else
-                {
-                    a.addTrait("FaXiang4");
-                }
             }
+            // 只添加FaXiang1特质
+            a.addTrait("FaXiang1");
             // 合体期增加1~1000点悟性，只增加一次
             if (!a.hasTrait("XianTu6_WuXingIncreased"))
             {
@@ -2311,6 +2404,116 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             return true;
         }
 
+        public static void PromoteHeTiFaXiang(Actor a)
+        {
+            // 400000真元时，将FaXiang1晋升为FaXiang2
+            if (a.GetXianTu() >= 400000 && a.GetXianTu() < 500000 && a.hasTrait("FaXiang1") && !a.hasTrait("FaXiang2") && !a.hasTrait("FaXiang3"))
+            {
+                // 先消耗部分真元
+                a.ChangeXianTu(-40000);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.0125;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.025;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.0375;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.0625;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.0875;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.125;
+                }
+                else
+                {
+                    promotionRate = 0.025; // 默认概率
+                }
+                
+                // 检查是否有天命印记，必定成功
+                if (a.hasTrait("TianDaoyinji"))
+                {
+                    promotionRate = 1.0;
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("FaXiang1");
+                    a.addTrait("FaXiang2");
+                    UpdateNameSuffix(a, "FaXiang2");
+                }
+                // 失败不返还真元
+            }
+            // 500000真元时，将FaXiang2晋升为FaXiang3
+            else if (a.GetXianTu() >= 500000 && a.hasTrait("FaXiang2") && !a.hasTrait("FaXiang3"))
+            {
+                // 先消耗部分真元
+                a.ChangeXianTu(-50000);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.00625;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.0125;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.01875;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.03125;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.04375;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.0625;
+                }
+                else
+                {
+                    promotionRate = 0.0125; // 默认概率
+                }
+                
+                // 检查是否有天命印记，必定成功
+                if (a.hasTrait("TianDaoyinji"))
+                {
+                    promotionRate = 1.0;
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("FaXiang2");
+                    a.addTrait("FaXiang3");
+                    UpdateNameSuffix(a, "FaXiang3");
+                }
+                // 失败不返还真元
+            }
+        }
+
         public static bool XianTu7_effectAction(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget == null)
@@ -2324,6 +2527,9 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             Actor a = pTarget.a;
+            
+            // 在大乘晋升判定前先进行合体期法相晋升判定
+            PromoteHeTiFaXiang(a);
 
             if (a.GetXianTu() <= 599999.99)
             {
@@ -2343,23 +2549,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 return false;
             }
 
-            a.ChangeXianTu(-10000);
+            a.ChangeXianTu(-599999);
             double successRate = 0.05;
-            if (a.hasTrait("FaXiang1"))
+            if (a.hasTrait("FaXiang3"))
             {
                 successRate = 0.05;
             }
-            else if (a.hasTrait("FaXiang2"))
-            {
-                successRate = 0.1;
-            }
-            else if (a.hasTrait("FaXiang3"))
-            {
-                successRate = 0.2;
-            }
             else if (a.hasTrait("FaXiang4"))
             {
-                successRate = 0.4;
+                successRate = 0.1;
             }
             
             // 检查是否拥有大乘丹，增加10%成功率
@@ -2431,6 +2629,16 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 {
                     LeiJieMechanism.TriggerHeTiToDaChengLeiJie(a);
                 }
+                if (a.hasTrait("FaXiang3"))
+                {
+                    a.removeTrait("FaXiang3");
+                    a.addTrait("FaXiang4");
+                }
+                // 突破失败，更新后缀为渡劫
+                string currentName = a.getName();
+                int lastDashIndex = currentName.LastIndexOf('-');
+                string basePart = lastDashIndex >= 0 ? currentName.Substring(0, lastDashIndex).Trim() : currentName;
+                a.setName($"{basePart}-大乘");
                 return false;
             }
             
@@ -2456,70 +2664,26 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 a.data.favorite = true;
             }
 
+            // 大乘成功后，移除所有合体期法相特质，并只获得FaXiang5特质
+            // 检查角色是否拥有FaXiang1~4特质
             if (a.hasTrait("FaXiang1"))
             {
-                // 移除原有的FaXiang1特质
                 a.removeTrait("FaXiang1");
-                
-                // 20%概率获得FaXiang1
-                double randomValue2 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue2 <= 0.3)
-                {
-                    a.addTrait("FaXiang6");
-                }
-                else if (randomValue2 <= 1.0)
-                {
-                    a.addTrait("FaXiang5");
-                }
             }
-            else if (a.hasTrait("FaXiang2"))
+            if (a.hasTrait("FaXiang2"))
             {
-                // 移除原有的FaXiang2特质
                 a.removeTrait("FaXiang2");
-                
-                // 30%概率获得FaXiang2，40%概率获得FaXiang1
-                double randomValue3 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue3 <= 0.5)
-                {
-                    a.addTrait("FaXiang6");
-                }
-                else if (randomValue3 <= 1.0)
-                {
-                    a.addTrait("FaXiang5");
-                }
             }
-            else if (a.hasTrait("FaXiang3"))
+            if (a.hasTrait("FaXiang3"))
             {
-                // 移除原有的FaXiang3特质
                 a.removeTrait("FaXiang3");
-                
-                // 40%概率获得FaXiang3，50%概率获得FaXiang2
-                double randomValue4 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue4 <= 0.4)
-                {
-                    a.addTrait("FaXiang7");
-                }
-                else if (randomValue4 <= 1.0)
-                {
-                    a.addTrait("FaXiang6");
-                }
             }
-            else if (a.hasTrait("FaXiang4"))
+            if (a.hasTrait("FaXiang4"))
             {
-                // 移除原有的FaXiang4特质
                 a.removeTrait("FaXiang4");
-                
-                // 50%概率获得FaXiang4，50%概率获得FaXiang3
-                double randomValue5 = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (randomValue5 <= 0.5)
-                {
-                    a.addTrait("FaXiang7");
-                }
-                else
-                {
-                    a.addTrait("FaXiang8");
-                }
             }
+            // 只添加FaXiang5特质
+            a.addTrait("FaXiang5");
 
             // 大乘期增加1~10000点悟性，只增加一次
             if (!a.hasTrait("XianTu7_WuXingIncreased"))
@@ -2552,6 +2716,116 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             return true;
         }
 
+        public static void PromoteDaChengFaXiang(Actor a)
+        {
+            // 700000真元时，将FaXiang5晋升为FaXiang6
+            if (a.GetXianTu() >= 700000 && a.GetXianTu() < 800000 && a.hasTrait("FaXiang5") && !a.hasTrait("FaXiang6") && !a.hasTrait("FaXiang7"))
+            {
+                // 先消耗部分真元
+                a.ChangeXianTu(-70000);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.00625;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.0125;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.01875;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.03125;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.04375;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.0625;
+                }
+                else
+                {
+                    promotionRate = 0.0125; // 默认概率
+                }
+                
+                // 检查是否有天命印记，必定成功
+                if (a.hasTrait("TianDaoyinji"))
+                {
+                    promotionRate = 1.0;
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("FaXiang5");
+                    a.addTrait("FaXiang6");
+                    UpdateNameSuffix(a, "FaXiang6");
+                }
+                // 失败不返还真元
+            }
+            // 800000真元时，将FaXiang6晋升为FaXiang7
+            else if (a.GetXianTu() >= 800000 && a.hasTrait("FaXiang6") && !a.hasTrait("FaXiang7"))
+            {
+                // 先消耗部分真元
+                a.ChangeXianTu(-80000);
+                
+                double promotionRate = 0.0;
+                
+                // 根据灵根设置不同概率
+                if (a.hasTrait("TaiyiLg2")) // 五灵根
+                {
+                    promotionRate = 0.003125;
+                }
+                else if (a.hasTrait("TaiyiLg3")) // 四灵根
+                {
+                    promotionRate = 0.00625;
+                }
+                else if (a.hasTrait("TaiyiLg4")) // 三灵根
+                {
+                    promotionRate = 0.009375;
+                }
+                else if (a.hasTrait("TaiyiLg5")) // 二灵根
+                {
+                    promotionRate = 0.015625;
+                }
+                else if (a.hasTrait("TaiyiLg6")) // 单灵根
+                {
+                    promotionRate = 0.021875;
+                }
+                else if (a.hasTrait("TaiyiLg7")) // 天灵根
+                {
+                    promotionRate = 0.03125;
+                }
+                else
+                {
+                    promotionRate = 0.00625; // 默认概率
+                }
+                
+                // 检查是否有天命印记，必定成功
+                if (a.hasTrait("TianDaoyinji"))
+                {
+                    promotionRate = 1.0;
+                }
+                
+                // 进行晋升判定
+                if (UnityEngine.Random.Range(0.0f, 1.0f) <= promotionRate)
+                {
+                    a.removeTrait("FaXiang6");
+                    a.addTrait("FaXiang7");
+                    UpdateNameSuffix(a, "FaXiang7");
+                }
+                // 失败不返还真元
+            }
+        }
+
         public static bool XianTu8_effectAction(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget == null)
@@ -2565,6 +2839,9 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             Actor a = pTarget.a;
+            
+            // 在真仙晋升判定前先进行大乘期法相晋升判定
+            PromoteDaChengFaXiang(a);
 
             if (a.GetXianTu() <= 999999.99)
             {
@@ -2584,23 +2861,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 return false;
             }
 
-            a.ChangeXianTu(-100000);
+            a.ChangeXianTu(-999999);
             double successRate = 0.01;
-            if (a.hasTrait("FaXiang5"))
+            if (a.hasTrait("FaXiang7"))
             {
                 successRate = 0.05;
             }
-            else if (a.hasTrait("FaXiang6"))
-            {
-                successRate = 0.1;
-            }
-            else if (a.hasTrait("FaXiang7"))
-            {
-                successRate = 0.2;
-            }
             else if (a.hasTrait("FaXiang8"))
             {
-                successRate = 0.4;
+                successRate = 0.1;
             }
             
             // 检查是否拥有地仙丹，增加5%成功率
@@ -2618,15 +2887,15 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             // 添加灵根对突破概率的影响
             if (a.hasTrait("TaiyiLg2")) // 杂灵根
             {
-                successRate -= 0.3;
+                successRate -= 0.9;
             }
             else if (a.hasTrait("TaiyiLg3")) // 四灵根
             {
-                successRate -= 0.2;
+                successRate -= 0.5;
             }
             else if (a.hasTrait("TaiyiLg4")) // 三灵根
             {
-                successRate -= 0.1;
+                successRate -= 0.3;
             }
             else if (a.hasTrait("TaiyiLg5")) // 二灵根
             {
@@ -2668,6 +2937,19 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
                 {
                     LeiJieMechanism.TriggerDaChengToDiXianLeiJie(a);
                 }
+                if (a.hasTrait("FaXiang7"))
+                {
+                    a.removeTrait("FaXiang7");
+                    a.addTrait("FaXiang8");
+                }
+                // 更新名称后缀为半仙
+                string currentName = a.data.name;
+                string baseName = currentName;
+                if (currentName.Contains("-"))
+                {
+                    baseName = currentName.Split('-')[0];
+                }
+                a.data.name = baseName + "-半仙";
                 return false;
             }
             
@@ -2703,7 +2985,7 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             // 突破成功后添加指定正面特质
-            string[] positiveTraitsToAdd = { "genius", "eagle eyed", "strong minded", "lucky", "immune", "sunblessed", "attractive", "acid proof", "fire proof", "freeze proof", "poison immunity" };
+            string[] positiveTraitsToAdd = { "genius", "eagle eyed", "strong minded", "lucky", "immune", "sunblessed", "attractive", "acid proof", "fire proof", "freeze proof", "poison immunity", "immortal" };
             foreach (string trait in positiveTraitsToAdd)
             {
                 if (!a.hasTrait(trait))
@@ -3241,6 +3523,14 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
             if (UnityEngine.Random.Range(0.0f, 1.0f) > successRate)
             {
+                // 更新名称后缀为玄仙
+                string currentName = a.data.name;
+                string baseName = currentName;
+                if (currentName.Contains("-"))
+                {
+                    baseName = currentName.Split('-')[0];
+                }
+                a.data.name = baseName + "-玄仙";
                 return false;
             }
             
@@ -3276,7 +3566,7 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             // 突破成功后添加指定正面特质
-            string[] positiveTraitsToAdd = { "genius", "eagle eyed", "strong minded", "lucky", "immune", "sunblessed", "attractive", "acid proof", "fire proof", "freeze proof", "poison immunity" };
+            string[] positiveTraitsToAdd = { "genius", "eagle eyed", "strong minded", "lucky", "immune", "sunblessed", "attractive", "acid proof", "fire proof", "freeze proof", "poison immunity", "immortal" };
             foreach (string trait in positiveTraitsToAdd)
             {
                 if (!a.hasTrait(trait))
@@ -3425,7 +3715,7 @@ private static void ApplyXianTuTitle(Actor actor, string newTrait)
             }
 
             // 突破成功后添加指定正面特质
-            string[] positiveTraitsToAdd = { "genius", "eagle eyed", "strong minded", "lucky", "immune", "sunblessed", "attractive", "acid proof", "fire proof", "freeze proof", "poison immunity" };
+            string[] positiveTraitsToAdd = { "genius", "eagle eyed", "strong minded", "lucky", "immune", "sunblessed", "attractive", "acid proof", "fire proof", "freeze proof", "poison immunity", "immortal" };
             foreach (string trait in positiveTraitsToAdd)
             {
                 if (!a.hasTrait(trait))

@@ -60,7 +60,7 @@
       "BoolVal": false,
       "Callback": "XianTuConfig:LimitDaoZuCallBack"
     },
-    
+        
     {
       "Id": "XianTu_config_limit_wudaolianpi",
       "Type": "SWITCH",

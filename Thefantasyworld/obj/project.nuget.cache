@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MqKr7yqm1hA=",
+  "dgSpecHash": "awjvhlREEP4=",
   "success": true,
-  "projectFilePath": "E:\\Worldbox\\Mods\\SwordImmortal\\InterestingTrait.csproj",
+  "projectFilePath": "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qaz15\\.nuget\\packages\\dnsclient\\1.8.0\\dnsclient.1.8.0.nupkg.sha512",
     "C:\\Users\\qaz15\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\9.0.1\\microsoft.bcl.asyncinterfaces.9.0.1.nupkg.sha512",

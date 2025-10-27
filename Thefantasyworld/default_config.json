@@ -1,0 +1,22 @@
+{
+  "ConfigThefantasyworld": [
+    {
+      "Id": "Thefantasyworld_config_auto_collect_Legend",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "ThefantasyworldConfig:AutoCollectLegendCallBack"
+    },
+    {
+      "Id": "Thefantasyworld_config_auto_collect_Demigod",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "ThefantasyworldConfig:AutoCollectDemigodCallBack"
+    },
+    {
+      "Id": "Thefantasyworld_config_auto_collect_god",
+      "Type": "SWITCH",
+      "BoolVal": true,
+      "Callback": "ThefantasyworldConfig:AutoCollectgodCallBack"
+    }
+  ]
+}

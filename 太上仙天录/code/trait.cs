@@ -269,8 +269,8 @@ namespace XianTu.code
             SafeSetStat(XianTu7.base_stats, strings.S.range, 3f);
             SafeSetStat(XianTu7.base_stats, strings.S.attack_speed, 8f);
             SafeSetStat(XianTu7.base_stats, strings.S.scale, 0.05f);
-            SafeSetStat(XianTu7.base_stats, strings.S.multiplier_health, 0.3f);
-            SafeSetStat(XianTu7.base_stats, strings.S.multiplier_damage, 0.3f);
+            SafeSetStat(XianTu7.base_stats, strings.S.multiplier_health, 0.5f);
+            SafeSetStat(XianTu7.base_stats, strings.S.multiplier_damage, 0.5f);
             SafeSetStat(XianTu7.base_stats, "Dodge", 1000f);
             SafeSetStat(XianTu7.base_stats, "Accuracy", 900f);
             // 绑定天地大神通级别的真伤攻击机制
@@ -310,8 +310,8 @@ namespace XianTu.code
             SafeSetStat(XianTu8.base_stats, strings.S.stamina, 280f);
             SafeSetStat(XianTu8.base_stats, strings.S.range, 5f);
             SafeSetStat(XianTu8.base_stats, strings.S.attack_speed, 9f);
-            SafeSetStat(XianTu8.base_stats, strings.S.multiplier_health, 0.5f);
-            SafeSetStat(XianTu8.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(XianTu8.base_stats, strings.S.multiplier_health, 1.2f);
+            SafeSetStat(XianTu8.base_stats, strings.S.multiplier_damage, 1.2f);
             SafeSetStat(XianTu8.base_stats, strings.S.scale, 0.07f);
             SafeSetStat(XianTu8.base_stats, "Dodge", 2000f);
             SafeSetStat(XianTu8.base_stats, "Accuracy", 1900f);
@@ -349,8 +349,8 @@ namespace XianTu.code
             SafeSetStat(XianTu9.base_stats, strings.S.range, 6f);
             SafeSetStat(XianTu9.base_stats, strings.S.attack_speed, 6f);
             SafeSetStat(XianTu9.base_stats, strings.S.scale, 0.08f); 
-            SafeSetStat(XianTu9.base_stats, strings.S.multiplier_health, 0.6f);
-            SafeSetStat(XianTu9.base_stats, strings.S.multiplier_damage, 0.6f);
+            SafeSetStat(XianTu9.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(XianTu9.base_stats, strings.S.multiplier_damage, 2.0f);
             SafeSetStat(XianTu9.base_stats, "Dodge", 3000f);
             SafeSetStat(XianTu9.base_stats, "Accuracy", 2600f);
             // 绑定无上妙法神通级别的真伤攻击机制
@@ -388,8 +388,8 @@ namespace XianTu.code
             SafeSetStat(XianTu91.base_stats, strings.S.range, 8f);
             SafeSetStat(XianTu91.base_stats, strings.S.attack_speed, 8f);
             SafeSetStat(XianTu91.base_stats, strings.S.scale, 0.1f); 
-            SafeSetStat(XianTu91.base_stats, strings.S.multiplier_health, 1.0f);
-            SafeSetStat(XianTu91.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(XianTu91.base_stats, strings.S.multiplier_health, 5.0f);
+            SafeSetStat(XianTu91.base_stats, strings.S.multiplier_damage, 5.0f);
             SafeSetStat(XianTu91.base_stats, "Dodge", 4000f);
             SafeSetStat(XianTu91.base_stats, "Accuracy", 3600f);
             // 绑定无上妙法神通级别的真伤攻击机制
@@ -1213,8 +1213,8 @@ namespace XianTu.code
             // 地道筑基
             ActorTrait daoJi2 = CreateTrait("DaoJi2", "trait/DaoJi2", "DaoJi");
             daoJi2.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi2.base_stats, strings.S.multiplier_damage, 1.0f);
-            SafeSetStat(daoJi2.base_stats, strings.S.multiplier_health, 1.0f);
+            SafeSetStat(daoJi2.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(daoJi2.base_stats, strings.S.multiplier_health, 0.5f);
             SafeSetStat(daoJi2.base_stats, strings.S.intelligence, 40f);
             SafeSetStat(daoJi2.base_stats, strings.S.lifespan, 90f);
             SafeSetStat(daoJi2.base_stats, strings.S.stamina, 120f);
@@ -1229,8 +1229,8 @@ namespace XianTu.code
             // 天道筑基
             ActorTrait daoJi3 = CreateTrait("DaoJi3", "trait/DaoJi3", "DaoJi");
             daoJi3.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi3.base_stats, strings.S.multiplier_damage, 2.0f);
-            SafeSetStat(daoJi3.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(daoJi3.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(daoJi3.base_stats, strings.S.multiplier_health, 1.0f);
             SafeSetStat(daoJi3.base_stats, strings.S.intelligence, 50f);
             SafeSetStat(daoJi3.base_stats, strings.S.lifespan, 100f);
             SafeSetStat(daoJi3.base_stats, strings.S.stamina, 150f);
@@ -1245,8 +1245,8 @@ namespace XianTu.code
             // 无上道基
             ActorTrait daoJi4 = CreateTrait("DaoJi4", "trait/DaoJi4", "DaoJi");
             daoJi4.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi4.base_stats, strings.S.multiplier_damage, 4.0f);
-            SafeSetStat(daoJi4.base_stats, strings.S.multiplier_health, 4.0f);
+            SafeSetStat(daoJi4.base_stats, strings.S.multiplier_damage, 2.0f);
+            SafeSetStat(daoJi4.base_stats, strings.S.multiplier_health, 2.0f);
             SafeSetStat(daoJi4.base_stats, strings.S.intelligence, 60f);
             SafeSetStat(daoJi4.base_stats, strings.S.lifespan, 110f);
             SafeSetStat(daoJi4.base_stats, strings.S.stamina, 180f);
@@ -1277,8 +1277,8 @@ namespace XianTu.code
             // 中品金丹
             ActorTrait daoJi6 = CreateTrait("DaoJi6", "trait/DaoJi6", "DaoJi");
             daoJi6.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi6.base_stats, strings.S.multiplier_damage, 1.0f);
-            SafeSetStat(daoJi6.base_stats, strings.S.multiplier_health, 1.0f);
+            SafeSetStat(daoJi6.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(daoJi6.base_stats, strings.S.multiplier_health, 0.5f);
             SafeSetStat(daoJi6.base_stats, strings.S.intelligence, 80f);
             SafeSetStat(daoJi6.base_stats, strings.S.lifespan, 200f);
             SafeSetStat(daoJi6.base_stats, strings.S.stamina, 240f);
@@ -1293,8 +1293,8 @@ namespace XianTu.code
             // 上品金丹
             ActorTrait daoJi7 = CreateTrait("DaoJi7", "trait/DaoJi7", "DaoJi");
             daoJi7.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi7.base_stats, strings.S.multiplier_damage, 2.0f);
-            SafeSetStat(daoJi7.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(daoJi7.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(daoJi7.base_stats, strings.S.multiplier_health, 1.0f);
             SafeSetStat(daoJi7.base_stats, strings.S.intelligence, 90f);
             SafeSetStat(daoJi7.base_stats, strings.S.lifespan, 250f);
             SafeSetStat(daoJi7.base_stats, strings.S.stamina, 270f);
@@ -1309,8 +1309,8 @@ namespace XianTu.code
             // 大道金丹
             ActorTrait daoJi8 = CreateTrait("DaoJi8", "trait/DaoJi8", "DaoJi");
             daoJi8.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi8.base_stats, strings.S.multiplier_damage, 4.0f);
-            SafeSetStat(daoJi8.base_stats, strings.S.multiplier_health, 4.0f);
+            SafeSetStat(daoJi8.base_stats, strings.S.multiplier_damage, 2.0f);
+            SafeSetStat(daoJi8.base_stats, strings.S.multiplier_health, 2.0f);
             SafeSetStat(daoJi8.base_stats, strings.S.intelligence, 100f);
             SafeSetStat(daoJi8.base_stats, strings.S.lifespan, 300f);
             SafeSetStat(daoJi8.base_stats, strings.S.stamina, 300f);
@@ -1341,8 +1341,8 @@ namespace XianTu.code
             // 六寸元婴
             ActorTrait daoJi91 = CreateTrait("DaoJi91", "trait/DaoJi91", "DaoJi");
             daoJi91.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi91.base_stats, strings.S.multiplier_damage, 1.0f);
-            SafeSetStat(daoJi91.base_stats, strings.S.multiplier_health, 1.0f);
+            SafeSetStat(daoJi91.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(daoJi91.base_stats, strings.S.multiplier_health, 0.5f);
             SafeSetStat(daoJi91.base_stats, strings.S.intelligence, 120f);
             SafeSetStat(daoJi91.base_stats, strings.S.lifespan, 360f);
             SafeSetStat(daoJi91.base_stats, strings.S.stamina, 360f);
@@ -1357,8 +1357,8 @@ namespace XianTu.code
             // 九寸元婴
             ActorTrait daoJi92 = CreateTrait("DaoJi92", "trait/DaoJi92", "DaoJi");
             daoJi92.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi92.base_stats, strings.S.multiplier_damage, 2.0f);
-            SafeSetStat(daoJi92.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(daoJi92.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(daoJi92.base_stats, strings.S.multiplier_health, 1.0f);
             SafeSetStat(daoJi92.base_stats, strings.S.intelligence, 140f);
             SafeSetStat(daoJi92.base_stats, strings.S.lifespan, 400f);
             SafeSetStat(daoJi92.base_stats, strings.S.stamina, 400f);
@@ -1373,8 +1373,8 @@ namespace XianTu.code
             // 不灭元婴
             ActorTrait daoJi93 = CreateTrait("DaoJi93", "trait/DaoJi93", "DaoJi");
             daoJi93.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi93.base_stats, strings.S.multiplier_damage, 4.0f);
-            SafeSetStat(daoJi93.base_stats, strings.S.multiplier_health, 4.0f);
+            SafeSetStat(daoJi93.base_stats, strings.S.multiplier_damage, 2.0f);
+            SafeSetStat(daoJi93.base_stats, strings.S.multiplier_health, 2.0f);
             SafeSetStat(daoJi93.base_stats, strings.S.intelligence, 160f);
             SafeSetStat(daoJi93.base_stats, strings.S.lifespan, 500f);
             SafeSetStat(daoJi93.base_stats, strings.S.stamina, 450f);
@@ -1405,8 +1405,8 @@ namespace XianTu.code
             // 六丈元神
             ActorTrait daoJi95 = CreateTrait("DaoJi95", "trait/DaoJi95", "DaoJi");
             daoJi95.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi95.base_stats, strings.S.multiplier_damage, 1.0f);
-            SafeSetStat(daoJi95.base_stats, strings.S.multiplier_health, 1.0f);
+            SafeSetStat(daoJi95.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(daoJi95.base_stats, strings.S.multiplier_health, 0.5f);
             SafeSetStat(daoJi95.base_stats, strings.S.intelligence, 210f);
             SafeSetStat(daoJi95.base_stats, strings.S.lifespan, 600f);
             SafeSetStat(daoJi95.base_stats, strings.S.stamina, 560f);
@@ -1421,8 +1421,8 @@ namespace XianTu.code
             // 九丈元神
             ActorTrait daoJi96 = CreateTrait("DaoJi96", "trait/DaoJi96", "DaoJi");
             daoJi96.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi96.base_stats, strings.S.multiplier_damage, 2.0f);
-            SafeSetStat(daoJi96.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(daoJi96.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(daoJi96.base_stats, strings.S.multiplier_health, 1.0f);
             SafeSetStat(daoJi96.base_stats, strings.S.intelligence, 250f);
             SafeSetStat(daoJi96.base_stats, strings.S.lifespan, 700f);
             SafeSetStat(daoJi96.base_stats, strings.S.stamina, 620f);
@@ -1437,8 +1437,8 @@ namespace XianTu.code
             // 天地元神
             ActorTrait daoJi97 = CreateTrait("DaoJi97", "trait/DaoJi97", "DaoJi");
             daoJi97.rarity = Rarity.R3_Legendary;
-            SafeSetStat(daoJi97.base_stats, strings.S.multiplier_damage, 4.0f);
-            SafeSetStat(daoJi97.base_stats, strings.S.multiplier_health, 4.0f);
+            SafeSetStat(daoJi97.base_stats, strings.S.multiplier_damage, 2.0f);
+            SafeSetStat(daoJi97.base_stats, strings.S.multiplier_health, 2.0f);
             SafeSetStat(daoJi97.base_stats, strings.S.intelligence, 280f);
             SafeSetStat(daoJi97.base_stats, strings.S.lifespan, 800f);
             SafeSetStat(daoJi97.base_stats, strings.S.stamina, 700f);
@@ -1469,8 +1469,8 @@ namespace XianTu.code
             // 千丈法相
             ActorTrait FaXiang2 = CreateTrait("FaXiang2", "trait/FaXiang2", "DaoJi");
             FaXiang2.rarity = Rarity.R3_Legendary;
-            SafeSetStat(FaXiang2.base_stats, strings.S.multiplier_damage, 1.0f);
-            SafeSetStat(FaXiang2.base_stats, strings.S.multiplier_health, 1.0f);
+            SafeSetStat(FaXiang2.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(FaXiang2.base_stats, strings.S.multiplier_health, 0.5f);
             SafeSetStat(FaXiang2.base_stats, strings.S.intelligence, 350f);
             SafeSetStat(FaXiang2.base_stats, strings.S.lifespan, 1000f);
             SafeSetStat(FaXiang2.base_stats, strings.S.stamina, 900f);
@@ -1485,8 +1485,8 @@ namespace XianTu.code
             // 万丈法相
             ActorTrait FaXiang3 = CreateTrait("FaXiang3", "trait/FaXiang3", "DaoJi");
             FaXiang3.rarity = Rarity.R3_Legendary;
-            SafeSetStat(FaXiang3.base_stats, strings.S.multiplier_damage, 2.0f);
-            SafeSetStat(FaXiang3.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(FaXiang3.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(FaXiang3.base_stats, strings.S.multiplier_health, 1.0f);
             SafeSetStat(FaXiang3.base_stats, strings.S.intelligence, 400f);
             SafeSetStat(FaXiang3.base_stats, strings.S.lifespan, 1500f);
             SafeSetStat(FaXiang3.base_stats, strings.S.stamina, 1000f);
@@ -1501,8 +1501,8 @@ namespace XianTu.code
             // 盘古法相
             ActorTrait FaXiang4 = CreateTrait("FaXiang4", "trait/FaXiang4", "DaoJi");
             FaXiang4.rarity = Rarity.R3_Legendary;
-            SafeSetStat(FaXiang4.base_stats, strings.S.multiplier_damage, 4.0f);
-            SafeSetStat(FaXiang4.base_stats, strings.S.multiplier_health, 4.0f);
+            SafeSetStat(FaXiang4.base_stats, strings.S.multiplier_damage, 2.0f);
+            SafeSetStat(FaXiang4.base_stats, strings.S.multiplier_health, 2.0f);
             SafeSetStat(FaXiang4.base_stats, strings.S.intelligence, 500f);
             SafeSetStat(FaXiang4.base_stats, strings.S.lifespan, 2000f);
             SafeSetStat(FaXiang4.base_stats, strings.S.stamina, 1200f);
@@ -1533,8 +1533,8 @@ namespace XianTu.code
             // 法相系列 - 太初法相
             ActorTrait FaXiang6 = CreateTrait("FaXiang6", "trait/FaXiang6", "DaoJi");
             FaXiang6.rarity = Rarity.R3_Legendary;
-            SafeSetStat(FaXiang6.base_stats, strings.S.multiplier_damage, 1.0f);
-            SafeSetStat(FaXiang6.base_stats, strings.S.multiplier_health, 1.0f);
+            SafeSetStat(FaXiang6.base_stats, strings.S.multiplier_damage, 0.5f);
+            SafeSetStat(FaXiang6.base_stats, strings.S.multiplier_health, 0.5f);
             SafeSetStat(FaXiang6.base_stats, strings.S.intelligence, 700f);
             SafeSetStat(FaXiang6.base_stats, strings.S.lifespan, 3000f);
             SafeSetStat(FaXiang6.base_stats, strings.S.stamina, 1600f);
@@ -1549,8 +1549,8 @@ namespace XianTu.code
             // 法相系列 - 鸿蒙法相
             ActorTrait FaXiang7 = CreateTrait("FaXiang7", "trait/FaXiang7", "DaoJi");
             FaXiang7.rarity = Rarity.R3_Legendary;
-            SafeSetStat(FaXiang7.base_stats, strings.S.multiplier_damage, 2.0f);
-            SafeSetStat(FaXiang7.base_stats, strings.S.multiplier_health, 2.0f);
+            SafeSetStat(FaXiang7.base_stats, strings.S.multiplier_damage, 1.0f);
+            SafeSetStat(FaXiang7.base_stats, strings.S.multiplier_health, 1.0f);
             SafeSetStat(FaXiang7.base_stats, strings.S.intelligence, 800f);
             SafeSetStat(FaXiang7.base_stats, strings.S.lifespan, 3500f);
             SafeSetStat(FaXiang7.base_stats, strings.S.stamina, 1800f);
@@ -1565,8 +1565,8 @@ namespace XianTu.code
             // 法相系列 - 大道法相
             ActorTrait FaXiang8 = CreateTrait("FaXiang8", "trait/FaXiang8", "DaoJi");
             FaXiang8.rarity = Rarity.R3_Legendary;
-            SafeSetStat(FaXiang8.base_stats, strings.S.multiplier_damage, 4.0f);
-            SafeSetStat(FaXiang8.base_stats, strings.S.multiplier_health, 4.0f);
+            SafeSetStat(FaXiang8.base_stats, strings.S.multiplier_damage, 2.0f);
+            SafeSetStat(FaXiang8.base_stats, strings.S.multiplier_health, 2.0f);
             SafeSetStat(FaXiang8.base_stats, strings.S.intelligence, 900f);
             SafeSetStat(FaXiang8.base_stats, strings.S.lifespan, 4000f);
             SafeSetStat(FaXiang8.base_stats, strings.S.stamina, 2000f);

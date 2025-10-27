@@ -9,7 +9,6 @@
             careerexperience.normalize = true;
             careerexperience.normalize_min = -99999;
             careerexperience.normalize_max = 2100000000;
-            // careerexperience.multiplier = true;
             careerexperience.used_only_for_civs = false;
             AssetManager.base_stats_library.add(careerexperience);
 
@@ -18,7 +17,6 @@
             DodgeEvade.normalize = true;
             DodgeEvade.normalize_min = -99999;
             DodgeEvade.normalize_max = 2100000000;
-            // DodgeEvade.multiplier = true;
             DodgeEvade.used_only_for_civs = false;
             AssetManager.base_stats_library.add(DodgeEvade);
 
@@ -27,7 +25,6 @@
             hitthetarget.normalize = true;
             hitthetarget.normalize_min = 0;
             hitthetarget.normalize_max = 2100000000;
-            // hitthetarget.multiplier = true;
             hitthetarget.used_only_for_civs = false;
             AssetManager.base_stats_library.add(hitthetarget);
 
@@ -36,7 +33,6 @@
             MagicApplication.normalize = true;
             MagicApplication.normalize_min = 0;
             MagicApplication.normalize_max = 2100000000;
-            // MagicApplication.multiplier = true;
             MagicApplication.used_only_for_civs = false;
             AssetManager.base_stats_library.add(MagicApplication);
 
@@ -45,34 +41,32 @@
             MagicShield.normalize = true;
             MagicShield.normalize_min = 0;
             MagicShield.normalize_max = 2100000000;
-            // MagicShield.multiplier = true;
             MagicShield.used_only_for_civs = false;
             AssetManager.base_stats_library.add(MagicShield);
 
-            BaseStatAsset Magicapplication = new BaseStatAsset();
-            Magicapplication.id = "Magicapplication";
-            Magicapplication.normalize = true;
-            Magicapplication.normalize_min = 0;
-            Magicapplication.normalize_max = 2100000000;
-            // Magicapplication.multiplier = true;
-            Magicapplication.used_only_for_civs = false;
-            AssetManager.base_stats_library.add(Magicapplication);
+            BaseStatAsset Fixedwound = new BaseStatAsset();
+            Fixedwound.id = "Fixedwound";
+            Fixedwound.normalize = true;
+            Fixedwound.normalize_min = 0;
+            Fixedwound.normalize_max = 2100000000;
+            Fixedwound.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(Fixedwound);
 
-            BaseStatAsset Resistretreat = new BaseStatAsset();
-            Resistretreat.id = "Resistretreat";
-            Resistretreat.normalize = true;
-            Resistretreat.normalize_min = 0;
-            Resistretreat.normalize_max = 2100000000;
-            Resistretreat.used_only_for_civs = false;
-            AssetManager.base_stats_library.add(Resistretreat);
+            BaseStatAsset Restorehealth = new BaseStatAsset();
+            Restorehealth.id = "Restorehealth";
+            Restorehealth.normalize = true;
+            Restorehealth.normalize_min = 0;
+            Restorehealth.normalize_max = 2100000000;
+            Restorehealth.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(Restorehealth);
 
-            BaseStatAsset Break = new BaseStatAsset();
-            Break.id = "Break";
-            Break.normalize = true;
-            Break.normalize_min = 0;
-            Break.normalize_max = 2100000000;
-            Break.used_only_for_civs = false;
-            AssetManager.base_stats_library.add(Break);          
+            BaseStatAsset MagicReply = new BaseStatAsset();
+            MagicReply.id = "MagicReply";
+            MagicReply.normalize = true;
+            MagicReply.normalize_min = 0;
+            MagicReply.normalize_max = 2100000000;
+            MagicReply.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(MagicReply);
         }
     }
 }

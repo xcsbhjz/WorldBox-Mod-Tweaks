@@ -612,11 +612,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WorldBox\\Mods\\SwordImmortal\\InterestingTrait.csproj",
+      "projectUniqueName": "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj",
       "projectName": "InterestingTrait",
-      "projectPath": "E:\\WorldBox\\Mods\\SwordImmortal\\InterestingTrait.csproj",
+      "projectPath": "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj",
       "packagesPath": "C:\\Users\\qaz15\\.nuget\\packages\\",
-      "outputPath": "E:\\WorldBox\\Mods\\SwordImmortal\\obj\\",
+      "outputPath": "E:\\Worldbox\\Mods\\Thefantasyworld\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\qaz15\\AppData\\Roaming\\NuGet\\NuGet.Config"

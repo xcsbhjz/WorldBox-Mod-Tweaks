@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Worldbox\\Mods\\SwordImmortal\\InterestingTrait.csproj": {}
+    "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj": {}
   },
   "projects": {
-    "E:\\Worldbox\\Mods\\SwordImmortal\\InterestingTrait.csproj": {
+    "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Worldbox\\Mods\\SwordImmortal\\InterestingTrait.csproj",
+        "projectUniqueName": "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj",
         "projectName": "InterestingTrait",
-        "projectPath": "E:\\Worldbox\\Mods\\SwordImmortal\\InterestingTrait.csproj",
+        "projectPath": "E:\\Worldbox\\Mods\\Thefantasyworld\\InterestingTrait.csproj",
         "packagesPath": "C:\\Users\\qaz15\\.nuget\\packages\\",
-        "outputPath": "E:\\Worldbox\\Mods\\SwordImmortal\\obj\\",
+        "outputPath": "E:\\Worldbox\\Mods\\Thefantasyworld\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qaz15\\AppData\\Roaming\\NuGet\\NuGet.Config"

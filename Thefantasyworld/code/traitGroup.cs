@@ -18,6 +18,14 @@ namespace PeerlessThedayofGodswrath.code
             };
             AssetManager.trait_groups.add(RankTalentst);
 
+            ActorTraitGroupAsset OrderofBeing = new ActorTraitGroupAsset
+            {
+                id = "OrderofBeing",
+                name = "trait_group_OrderofBeing",
+                color = "#FF4500" // 橙红色 -  demi-god特质组
+            };
+            AssetManager.trait_groups.add(OrderofBeing);    
+
             ActorTraitGroupAsset enchanter = new ActorTraitGroupAsset
             {
                 id = "enchanter",
@@ -50,21 +58,69 @@ namespace PeerlessThedayofGodswrath.code
             };
             AssetManager.trait_groups.add(valiantgeneral);
 
-            ActorTraitGroupAsset shooter = new ActorTraitGroupAsset
+            ActorTraitGroupAsset Ranger = new ActorTraitGroupAsset
             {
-                id = "shooter",
-                name = "trait_group_shooter",
+                id = "Ranger",
+                name = "trait_group_Ranger",
                 color = "#008000" // 深绿色 - 射手特质组
             };
-            AssetManager.trait_groups.add(shooter);
+            AssetManager.trait_groups.add(Ranger);
 
-            ActorTraitGroupAsset assassin = new ActorTraitGroupAsset
+            ActorTraitGroupAsset Assassin = new ActorTraitGroupAsset
             {
-                id = "assassin",
-                name = "trait_group_assassin",
+                id = "Assassin",
+                name = "trait_group_Assassin",
                 color = "#808080" // 灰色 - 刺客特质组
             };
-            AssetManager.trait_groups.add(assassin);
+            AssetManager.trait_groups.add(Assassin);
+
+            ActorTraitGroupAsset Summoner = new ActorTraitGroupAsset
+            {
+                id = "Summoner",
+                name = "trait_group_Summoner",
+                color = "#9932CC" // 暗紫色 - 召唤师特质组（契约使者）
+            };
+            AssetManager.trait_groups.add(Summoner);
+
+            ActorTraitGroupAsset minstrel = new ActorTraitGroupAsset
+            {
+                id = "minstrel",
+                name = "trait_group_minstrel",
+                color = "#FF69B4" // 粉色 - 吟游诗人特质组（旋律大师）
+            };
+            AssetManager.trait_groups.add(minstrel);
+
+            ActorTraitGroupAsset warlock = new ActorTraitGroupAsset
+            {
+                id = "warlock",
+                name = "trait_group_warlock",
+                color = "#4B0082" // 靛蓝色 - 咒术师特质组（诅咒大师）
+            };
+            AssetManager.trait_groups.add(warlock);
+
+            ActorTraitGroupAsset alchemist = new ActorTraitGroupAsset
+            {
+                id = "alchemist",
+                name = "trait_group_alchemist",
+                color = "#FF4500" // 橙红色 - 炼金术士特质组（元素大师）
+            };
+            AssetManager.trait_groups.add(alchemist);
+
+            ActorTraitGroupAsset barbarian = new ActorTraitGroupAsset
+            {
+                id = "barbarian",
+                name = "trait_group_barbarian",
+                color = "#B22222" // 耐火砖红色 - 野蛮人特质组（野蛮icus）
+            };
+            AssetManager.trait_groups.add(barbarian);
+
+            ActorTraitGroupAsset Summonedcreature = new ActorTraitGroupAsset
+            {
+                id = "Summonedcreature",
+                name = "trait_group_Summonedcreature",
+                color = "#9932CC" // 暗紫色 - 召唤物特质组（契约使者）
+            };
+            AssetManager.trait_groups.add(Summonedcreature);
         }
     }
 }

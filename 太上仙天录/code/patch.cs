@@ -417,14 +417,39 @@ namespace XianTu.code
                 __instance.SetEarth(UnityEngine.Random.Range(1f, 101f));
             }
             
-            // 2-4岁每年增加1-10点五行属性
+            // 2-4岁每年增加1-10点五行属性，并考虑血脉影响
             if (Mathf.FloorToInt(age) >= 2 && Mathf.FloorToInt(age) <= 4)
             {
-                __instance.ChangeMetal(UnityEngine.Random.Range(1f, 101f));
-                __instance.ChangeWood(UnityEngine.Random.Range(1f, 101f));
-                __instance.ChangeWater(UnityEngine.Random.Range(1f, 101f));
-                __instance.ChangeFire(UnityEngine.Random.Range(1f, 101f));
-                __instance.ChangeEarth(UnityEngine.Random.Range(1f, 101f));
+                // 计算血脉加成
+                int bloodBonus = 0;
+                if (__instance.hasTrait("TyXuemai7")) // 帝阶血脉
+                    bloodBonus = 50;
+                else if (__instance.hasTrait("TyXuemai6")) // 圣阶血脉
+                    bloodBonus = 30;
+                else if (__instance.hasTrait("TyXuemai5")) // 天阶血脉
+                    bloodBonus = 10;
+                else if (__instance.hasTrait("TyXuemai4")) // 地阶血脉
+                    bloodBonus = 5;
+                else if (__instance.hasTrait("TyXuemai3")) // 玄阶血脉
+                    bloodBonus = -5;
+                else if (__instance.hasTrait("TyXuemai2")) // 灵阶血脉
+                    bloodBonus = -10;
+                else if (__instance.hasTrait("TyXuemai1")) // 凡俗血脉
+                    bloodBonus = -30;
+                
+                // 增加基础属性和血脉加成
+                float metal = __instance.GetMetal() + UnityEngine.Random.Range(1f, 101f) + bloodBonus;
+                float wood = __instance.GetWood() + UnityEngine.Random.Range(1f, 101f) + bloodBonus;
+                float water = __instance.GetWater() + UnityEngine.Random.Range(1f, 101f) + bloodBonus;
+                float fire = __instance.GetFire() + UnityEngine.Random.Range(1f, 101f) + bloodBonus;
+                float earth = __instance.GetEarth() + UnityEngine.Random.Range(1f, 101f) + bloodBonus;
+                
+                // 确保五行属性不超过400
+                __instance.SetMetal(Mathf.Min(400f, Mathf.Max(0f, metal)));
+                __instance.SetWood(Mathf.Min(400f, Mathf.Max(0f, wood)));
+                __instance.SetWater(Mathf.Min(400f, Mathf.Max(0f, water)));
+                __instance.SetFire(Mathf.Min(400f, Mathf.Max(0f, fire)));
+                __instance.SetEarth(Mathf.Min(400f, Mathf.Max(0f, earth)));
             }
             
             // 根据悟性每年增加功法进度
@@ -454,25 +479,25 @@ namespace XianTu.code
                     
                     // 根据功法层次确定增加的资源数量
                     if (currentGongFaDian >= 900000) // 大罗阶
-                        resourceIncrease = 1024f;
+                        resourceIncrease = 640f;
                     else if (currentGongFaDian >= 600000) // 不朽阶
-                        resourceIncrease = 512f;
+                        resourceIncrease = 320f;
                     else if (currentGongFaDian >= 300000) // 混沌阶
-                        resourceIncrease = 256f;
+                        resourceIncrease = 160f;
                     else if (currentGongFaDian >= 100000) // 大道阶
-                        resourceIncrease = 128f;
+                        resourceIncrease = 80f;
                     else if (currentGongFaDian >= 50000) // 羽化阶
-                        resourceIncrease = 64f;
+                        resourceIncrease = 40f;
                     else if (currentGongFaDian >= 10000) // 法相阶
-                        resourceIncrease = 32f;
+                        resourceIncrease = 30f;
                     else if (currentGongFaDian >= 6000) // 元神阶
-                        resourceIncrease = 16f;
+                        resourceIncrease = 20f;
                     else if (currentGongFaDian >= 3000) // 道胎阶
-                        resourceIncrease = 8f;
+                        resourceIncrease = 10f;
                     else if (currentGongFaDian >= 1000) // 紫府阶
-                        resourceIncrease = 4f;
+                        resourceIncrease = 6f;
                     else if (currentGongFaDian >= 100) // 道基阶
-                        resourceIncrease = 2f;
+                        resourceIncrease = 3f;
                     else if (currentGongFaDian >= 10) // 炼炁阶
                         resourceIncrease = 1f;
                     
@@ -648,43 +673,52 @@ namespace XianTu.code
                     switch (highestBloodline)
                     {
                         case "TyXuemai1": // 凡俗血脉 - 只能觉醒凡人之资或小有天资
-                            if (randomValue < 0.7f)
+                            if (randomValue < 0.9f)
                                 selectedTrait = "TyGengu1"; // 70% 凡人之资
                             else
                                 selectedTrait = "TyGengu2"; // 30% 小有天资
                             break;
 
                         case "TyXuemai2": // 灵阶血脉 - 主要觉醒小有天资，偶尔可觉醒凡人之资
-                            if (randomValue < 0.3f)
+                            if (randomValue < 0.7f)
                                 selectedTrait = "TyGengu1"; // 30% 凡人之资
                             else
                                 selectedTrait = "TyGengu2"; // 70% 小有天资
                             break;
 
                         case "TyXuemai3": // 玄阶血脉 - 主要觉醒武道奇才，可觉醒小有天资
-                            if (randomValue < 0.3f)
-                                selectedTrait = "TyGengu2"; // 30% 小有天资
+                            if (randomValue < 0.5f)
+                                selectedTrait = "TyGengu1"; // 30% 凡人之资
                             else
-                                selectedTrait = "TyGengu3"; // 70% 武道奇才
+                                selectedTrait = "TyGengu2"; // 70% 小有天资
                             break;
 
                         case "TyXuemai4": // 地阶血脉 - 主要觉醒天生武骨，可觉醒武道奇才
                             if (randomValue < 0.3f)
-                                selectedTrait = "TyGengu3"; // 30% 武道奇才
+                                selectedTrait = "TyGengu1"; // 30% 凡人之资
                             else
-                                selectedTrait = "TyGengu4"; // 70% 天生武骨
+                                selectedTrait = "TyGengu2"; // 70% 小有天资
                             break;
 
                         case "TyXuemai5": // 天阶血脉 - 必觉醒天生武骨
-                            selectedTrait = "TyGengu4"; // 100% 天生武骨
+                            if (randomValue < 0.7f)
+                                selectedTrait = "TyGengu2"; // 30% 凡人之资
+                            else
+                                selectedTrait = "TyGengu3"; // 70% 小有天资
                             break;
 
                         case "TyXuemai6": // 圣阶血脉 - 必觉醒天生武骨
-                            selectedTrait = "TyGengu4"; // 100% 天生武骨
+                            if (randomValue < 0.5f)
+                                selectedTrait = "TyGengu2"; // 30% 凡人之资
+                            else
+                                selectedTrait = "TyGengu3"; // 70% 小有天资
                             break;
 
                         case "TyXuemai7": // 帝阶血脉 - 必觉醒天生武骨
-                            selectedTrait = "TyGengu4"; // 100% 天生武骨
+                            if (randomValue < 0.3f)
+                                selectedTrait = "TyGengu3"; // 30% 武道奇才
+                            else
+                                selectedTrait = "TyGengu4"; // 70% 天生武骨
                             break;
                     }
 
@@ -822,7 +856,7 @@ namespace XianTu.code
                 { "XianTu7", 1000000f },
                 { "XianTu8", 3000000f },
                 { "XianTu9", 6000000f },
-                { "TaiYiyinji", 6000000f },
+                { "TaiYiyinji", 8000000f },
                 { "XianTu91", 10000000f },
             };
             
@@ -831,6 +865,24 @@ namespace XianTu.code
             {
                 UpdateXianTuBasedOnGrade(__instance, grade.Key, grade.Value);
             }
+            
+            // 定义各武道境界的最大气血值
+            var wudaoGrades = new Dictionary<string, float>
+            {
+                { "TyWudao1", 50f },
+                { "TyWudao2", 150f },
+                { "TyWudao3", 250f },
+                { "TyWudao4", 500f },
+                { "TyWudao5", 1000f },
+                { "TyWudao6", 2500f },
+                { "TyWudao7", 5000f },
+                { "TyWudao8", 10000f },
+                { "TyWudao9", 25000f },
+                { "TyWudao91", 50000f },
+                { "TyWudao92", 100000f },
+                { "TyWudao93", 300000f },
+                { "TyWudao94", 1000000f }
+            };
             
             // 根据仙途境界每年获得对应的灵石
             if (__instance.hasTrait("XianTu1")) // 练气期
@@ -868,6 +920,10 @@ namespace XianTu.code
             else if (__instance.hasTrait("XianTu9")) // 仙王境
             {
                 __instance.ChangeShangPin(1f); // 每年获得1块上品灵石
+            }
+            else if (__instance.hasTrait("XianTu91")) // 仙王境
+            {
+                __instance.ChangeShangPin(10f); // 每年获得1块上品灵石
             }
             
             // 根据武道境界每年获得对应的灵石（仅对没有修仙境界的角色生效）
@@ -960,7 +1016,7 @@ namespace XianTu.code
             string highestElement = highestAttr.Key;
             
             // 计算有多少属性达到极品或天灵根
-            int excellentCount = attributes.Count(a => a.Value >= 361 && a.Value <= 390);
+            int excellentCount = attributes.Count(a => a.Value >= 351 && a.Value <= 390);
             int celestialCount = attributes.Count(a => a.Value >= 391 && a.Value <= 400);
             int allCelestialCount = attributes.Count(a => a.Value >= 400);
             
@@ -1013,7 +1069,7 @@ namespace XianTu.code
                     traitId = "TaiyiLg7";
                 }
             }
-            else if (highestValue >= 361 && highestValue <= 390) // 极品灵根范围
+            else if (highestValue >= 350 && highestValue <= 390) // 极品灵根范围
             {
                 if (excellentCount >= 2) // 变异灵根
                 {
@@ -1044,17 +1100,17 @@ namespace XianTu.code
                     traitId = "TaiyiLg5";
                 }
             }
-            else if (highestValue >= 301 && highestValue <= 360) // 上品灵根
+            else if (highestValue >= 321 && highestValue <= 350) // 上品灵根
             {
                 spiritualRootName = "上品" + highestElement + "灵根";
                 traitId = "TaiyiLg4";
             }
-            else if (highestValue >= 101 && highestValue <= 200) // 中品灵根
+            else if (highestValue >= 201 && highestValue <= 320) // 中品灵根
             {
                 spiritualRootName = "中品" + highestElement + "灵根";
                 traitId = "TaiyiLg3";
             }
-            else if (highestValue >= 5 && highestValue <= 100) // 下品灵根
+            else if (highestValue >= 5 && highestValue <= 200) // 下品灵根
             {
                 spiritualRootName = "下品" + highestElement + "灵根";
                 traitId = "TaiyiLg2";
@@ -1192,7 +1248,7 @@ namespace XianTu.code
                 
                 // 7.4 七阶-仙人晋升八阶-准圣（需要大千世界，且七阶强者至少10000）
                 float promoteToEighth = 0f;
-                if (seventhLevelCount >= 100000f && actor.hasTrait("FaXiang92"))
+                if (seventhLevelCount >= 10000f && actor.hasTrait("FaXiang92"))
                 {
                     promoteToEighth = Mathf.Floor(seventhLevelCount * 0.001f);
                     promoteToEighth = Mathf.RoundToInt(promoteToEighth);
@@ -1212,9 +1268,9 @@ namespace XianTu.code
                 
                 // 7.6 八阶-准圣晋升九阶-圣人（需要混沌世界，且八阶强者至少10000）
                 float promoteToNinth = 0f;
-                if (eighthLevelCount >= 100000f && actor.hasTrait("FaXiang93"))
+                if (eighthLevelCount >= 10000f && actor.hasTrait("FaXiang93"))
                 {
-                    promoteToNinth = Mathf.Floor(eighthLevelCount * 0.00001f);
+                    promoteToNinth = Mathf.Floor(eighthLevelCount * 0.0001f);
                     promoteToNinth = Mathf.RoundToInt(promoteToNinth);
                     actor.ChangeWorldStrongEighth(-promoteToNinth);
                     actor.ChangeWorldStrongNinth(promoteToNinth);
@@ -1293,64 +1349,69 @@ namespace XianTu.code
         {
             if (actor == null || !actor.isAlive()) return;
 
-            // 定义血脉特质ID与境界的对应关系
-            string[] bloodlineTraits = { "TyXuemai2", "TyXuemai3", "TyXuemai4", "TyXuemai5", "TyXuemai6", "TyXuemai7" };
-            string[] realmTraits = { "XianTu1", "XianTu2", "XianTu3", "XianTu4", "XianTu5", "XianTu6" };
-            string[] realmNames = { "练气期", "筑基期", "金丹期", "元婴期", "化神期", "合体期" };
-            string[] bloodlineNames = { "练气血脉", "筑基血脉", "金丹血脉", "元婴血脉", "化神血脉", "道君血脉" };
-
             // 检查是否已经拥有任何血脉特质
             bool hasAnyBloodline = false;
+            string currentBloodline = null;
             for (int i = 1; i <= 7; i++)
             {
                 if (actor.hasTrait("TyXuemai" + i))
                 {
                     hasAnyBloodline = true;
+                    currentBloodline = "TyXuemai" + i;
                     break;
                 }
             }
 
-            // 1. 检查武道宗师以上境界（TyWudao2或TyWudao3），如果有且没有血脉特质，则授予凡俗血脉(TyXuemai1)
-            if ((actor.hasTrait("TyWudao2") || actor.hasTrait("TyWudao3")) && !hasAnyBloodline)
+            // 定义新的境界与血脉对应规则
+            // 按照境界从高到低检查，确保获得最高可获得的血脉
+            string targetBloodline = null;
+            
+            // 帝阶血脉 - TyWudao94或XianTu91
+            if (actor.hasTrait("TyWudao94") || actor.hasTrait("XianTu91"))
             {
-                actor.addTrait("TyXuemai1", false);
-                return; // 已经授予血脉，退出方法
+                targetBloodline = "TyXuemai7";
+            }
+            // 圣阶血脉 - TyWudao92或XianTu8
+            else if (actor.hasTrait("TyWudao92") || actor.hasTrait("XianTu8"))
+            {
+                targetBloodline = "TyXuemai6";
+            }
+            // 天阶血脉 - TyWudao9或XianTu6
+            else if (actor.hasTrait("TyWudao9") || actor.hasTrait("XianTu6"))
+            {
+                targetBloodline = "TyXuemai5";
+            }
+            // 地阶血脉 - TyWudao7或XianTu4
+            else if (actor.hasTrait("TyWudao7") || actor.hasTrait("XianTu4"))
+            {
+                targetBloodline = "TyXuemai4";
+            }
+            // 玄阶血脉 - TyWudao6或XianTu3
+            else if (actor.hasTrait("TyWudao6") || actor.hasTrait("XianTu3"))
+            {
+                targetBloodline = "TyXuemai3";
+            }
+            // 灵阶血脉 - TyWudao5或XianTu2
+            else if (actor.hasTrait("TyWudao5") || actor.hasTrait("XianTu2"))
+            {
+                targetBloodline = "TyXuemai2";
+            }
+            // 凡俗血脉 - TyWudao3或XianTu1
+            else if (actor.hasTrait("TyWudao3") || actor.hasTrait("XianTu1"))
+            {
+                targetBloodline = "TyXuemai1";
             }
 
-            // 2. 根据修仙境界授予对应的血脉特质
-            for (int i = realmTraits.Length - 1; i >= 0; i--)
+            // 如果找到匹配的血脉特质且与当前血脉不同
+            if (targetBloodline != null && targetBloodline != currentBloodline)
             {
-                if (actor.hasTrait(realmTraits[i]))
+                // 移除当前血脉（如果有）
+                if (currentBloodline != null)
                 {
-                    // 如果已经拥有当前境界或更高境界的血脉，则不再授予
-                    if (hasAnyBloodline)
-                    {
-                        bool hasHigherOrEqualBloodline = false;
-                        for (int j = i; j < bloodlineTraits.Length; j++)
-                        {
-                            if (actor.hasTrait(bloodlineTraits[j]))
-                            {
-                                hasHigherOrEqualBloodline = true;
-                                break;
-                            }
-                        }
-                        if (hasHigherOrEqualBloodline)
-                        {
-                            break;
-                        }
-                        // 如果拥有较低境界的血脉，则移除并授予当前境界的血脉
-                        for (int j = 0; j < i; j++)
-                        {
-                            if (actor.hasTrait(bloodlineTraits[j]))
-                            {
-                                actor.removeTrait(bloodlineTraits[j]);
-                            }
-                        }
-                    }
-                    // 授予当前境界对应的血脉
-                    actor.addTrait(bloodlineTraits[i], false);
-                    break;
+                    actor.removeTrait(currentBloodline);
                 }
+                // 授予新的血脉
+                actor.addTrait(targetBloodline, false);
             }
         }
 
@@ -1363,6 +1424,18 @@ namespace XianTu.code
                 // 设置序列值为当前值和最大值中的较小值
                 float newValue = Mathf.Min(maxXianTu, currentXianTu);
                 actor.SetXianTu(newValue);
+            }
+        }
+        
+        // 根据武道境界更新气血上限的方法
+        static void UpdateQiXueBasedOnGrade(Actor actor, string traitName, float maxQiXue)
+        {
+            if (actor.hasTrait(traitName))
+            {
+                float currentQiXue = actor.GetQiXue();
+                // 设置气血值为当前值和最大值中的较小值
+                float newValue = Mathf.Min(maxQiXue, currentQiXue);
+                actor.SetQiXue(newValue);
             }
         }
 

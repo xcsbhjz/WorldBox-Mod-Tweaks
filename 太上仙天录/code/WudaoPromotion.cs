@@ -46,25 +46,7 @@ static class StatusAssetExtensions
 }
 
 public class WudaoPromotion
-{
-    // 定义各武道境界的气血上限
-    public static readonly Dictionary<string, float> wudaoQiXueMax = new Dictionary<string, float>
-    {
-        { "TyWudao1", 10f },
-        { "TyWudao2", 30f },
-        { "TyWudao3", 50f },
-        { "TyWudao4", 100f },
-        { "TyWudao5", 200f },
-        { "TyWudao6", 500f },
-        { "TyWudao7", 1000f },
-        { "TyWudao8", 3000f },
-        { "TyWudao9", 5000f },
-        { "TyWudao91", 10000f },
-        { "TyWudao92", 100000f },
-        { "TyWudao93", 500000f },
-        { "TyWudao94", 1000000f }
-    };
-    
+{    
     // 静态构造函数，用于初始化状态效果
     static WudaoPromotion()
     {
@@ -308,7 +290,7 @@ public class WudaoPromotion
         float qiXue = actor.GetQiXue();
         
         // 检查是否可以晋升炼皮（TyWudao1）- 已有更高境界则跳过
-        if (!actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 10f && !XianTuConfig.LimitWuDaoLianPi)
+        if (!actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 10f)
         {
             // 只要气血达到10点，就自动晋升为后天武者
             actor.addTrait("TyWudao1", false);
@@ -317,13 +299,13 @@ public class WudaoPromotion
         }
         
         // 检查是否可以晋升锻骨（TyWudao2）- 已有更高境界则跳过
-        if (actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 50f && !XianTuConfig.LimitWuDaoDuanGu)
+        if (actor.hasTrait("TyWudao1") && !actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 50f)
         {
             // 消耗50点气血
             actor.ChangeQiXue(-50f);
             
             // 根据武道资质决定晋升概率
-            float promotionChance = 0.9f; // 基础概率20%
+            float promotionChance = 0.5f; // 基础概率20%
             
             // 根据资质提高晋升概率
             if (actor.hasTrait("TyGengu1")) promotionChance += 0.1f;  // 凡人之资 +10%
@@ -353,17 +335,16 @@ public class WudaoPromotion
                 // 更新后缀
                 actor.UpdateNameSuffix("锻骨");
             }
-        
         }
         
         // 检查是否可以晋升炼脏（TyWudao3）- 已有更高境界则跳过
-        if (actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 150f && !XianTuConfig.LimitWuDaoHuanXue)
+        if (actor.hasTrait("TyWudao2") && !actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 150f)
         {
             // 消耗100点气血
             actor.ChangeQiXue(-15f);
             
             // 根据武道资质决定晋升概率
-            float promotionChance = 0.8f; // 基础概率10%
+            float promotionChance = 0.45f; // 基础概率10%
             
             // 根据资质提高晋升概率
             if (actor.hasTrait("TyGengu1")) promotionChance += 0.1f;  // 凡人之资 +10%
@@ -396,13 +377,13 @@ public class WudaoPromotion
         }
 
         // 检查是否可以晋升武道大宗师（TyWudao4）- 已有更高境界则跳过
-        if (actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 250f && !XianTuConfig.LimitWuDaoLianZang)
+        if (actor.hasTrait("TyWudao3") && !actor.hasTrait("TyWudao4") && !actor.hasTrait("TyWudao5") && !actor.hasTrait("TyWudao6") && !actor.hasTrait("TyWudao7") && !actor.hasTrait("TyWudao8") && !actor.hasTrait("TyWudao9") && !actor.hasTrait("TyWudao91") && !actor.hasTrait("TyWudao92") && !actor.hasTrait("TyWudao93") && !actor.hasTrait("TyWudao94") && qiXue >= 250f)
         {
             // 消耗50点气血
             actor.ChangeQiXue(-25f);
             
             // 根据武道资质决定晋升概率
-            float promotionChance = 0.7f; // 基础概率5%
+            float promotionChance = 0.4f; // 基础概率5%
             
             // 根据资质提高晋升概率
             if (actor.hasTrait("TyGengu1")) promotionChance += 0.1f;  // 凡人之资 +10%
@@ -450,10 +431,10 @@ public class WudaoPromotion
             actor.ChangeQiXue(-50f);
             
             // 根据武道资质决定晋升概率
-            float promotionChance = 0.5f; // 基础概率2%
+            float promotionChance = 0.35f; // 基础概率2%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.1f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.1f;  // 凡人之资 +10%
             if (actor.hasTrait("TyGengu2")) promotionChance += 0.2f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.3f;  // 武道奇才 +40%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.5f;  // 天生武骨 +70%
@@ -548,10 +529,10 @@ public class WudaoPromotion
             actor.ChangeQiXue(-100f);
             
             // 根据武道资质决定晋升概率
-            float promotionChance = 0.4f; // 基础概率1%
+            float promotionChance = 0.3f; // 基础概率1%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.1f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.1f;  // 凡人之资 +10%
             if (actor.hasTrait("TyGengu2")) promotionChance += 0.2f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.3f; // 武道奇才 +45%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.4f;  // 天生武骨 +80%
@@ -624,10 +605,10 @@ public class WudaoPromotion
             actor.ChangeQiXue(-250f);
             
             // 根据武道资质决定晋升概率
-            float promotionChance = 0.3f; // 基础概率0.8%
+            float promotionChance = 0.25f; // 基础概率0.8%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.1f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.1f;  // 凡人之资 +10%
             if (actor.hasTrait("TyGengu2")) promotionChance += 0.2f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.3f;  // 武道奇才 +50%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.4f; // 天生武骨 +85%
@@ -700,7 +681,7 @@ public class WudaoPromotion
             float promotionChance = 0.2f; // 基础概率0.5%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.05f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.05f;  // 凡人之资 +10%
             if (actor.hasTrait("TyGengu2")) promotionChance += 0.1f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.15f; // 武道奇才 +55%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.2f;  // 天生武骨 +90%
@@ -774,9 +755,9 @@ public class WudaoPromotion
             float promotionChance = 0.1f; // 基础概率0.3%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.05f;  // 凡人之资 +10%
-            if (actor.hasTrait("TyGengu2")) promotionChance += 0.07f;  // 小有天资 +20%
-            if (actor.hasTrait("TyGengu3")) promotionChance += 0.09f;  // 武道奇才 +60%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.1f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu2")) promotionChance += 0.03f;  // 小有天资 +20%
+            if (actor.hasTrait("TyGengu3")) promotionChance += 0.05f;  // 武道奇才 +60%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.1f; // 天生武骨 +95%
             
             // 获取功法层次名称
@@ -853,8 +834,8 @@ public class WudaoPromotion
             float promotionChance = 0.05f; // 基础概率0.1%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.01f;  // 凡人之资 +10%
-            if (actor.hasTrait("TyGengu2")) promotionChance += 0.03f;  // 小有天资 +20%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.1f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu2")) promotionChance += 0.05f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.06f; // 武道奇才 +65%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.1f; // 天生武骨 +99%
             
@@ -930,8 +911,8 @@ public class WudaoPromotion
             float promotionChance = 0.01f; // 基础概率0.05%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.01f;  // 凡人之资 +10%
-            if (actor.hasTrait("TyGengu2")) promotionChance += 0.03f;  // 小有天资 +20%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.1f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu2")) promotionChance -= 0.05f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.06f;  // 武道奇才 +70%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.1f;  // 天生武骨 +100%
             
@@ -1025,8 +1006,8 @@ public class WudaoPromotion
             float promotionChance = 0.005f; // 基础概率0.5%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.01f;  // 凡人之资 +10%
-            if (actor.hasTrait("TyGengu2")) promotionChance += 0.03f;  // 小有天资 +20%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.01f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu2")) promotionChance -= 0.03f;  // 小有天资 +20%
             if (actor.hasTrait("TyGengu3")) promotionChance += 0.06f;  // 武道奇才 +70%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.1f;  // 天生武骨 +100%
             
@@ -1085,7 +1066,8 @@ public class WudaoPromotion
             }
         }
         // 检查是否可以获得天心印记（TianXinYinji）
-        if (actor.hasTrait("TyWudao93") && qiXue >= 200000f && !actor.hasTrait("TianXinYinji"))
+        float actorAge = (float)actor.getAge();
+        if (actor.hasTrait("TyWudao93") && qiXue >= 200000f && !actor.hasTrait("TianXinYinji") && Mathf.FloorToInt(actorAge) <= 2000)
         {
             // 检查是否有其他角色已经拥有天心印记（使用特性系统确保唯一性）
             bool markExists = false;
@@ -1127,9 +1109,9 @@ public class WudaoPromotion
             float promotionChance = 0.001f; // 基础概率0.1%
             
             // 根据资质提高晋升概率
-            if (actor.hasTrait("TyGengu1")) promotionChance += 0.01f;  // 凡人之资 +10%
-            if (actor.hasTrait("TyGengu2")) promotionChance += 0.03f;  // 小有天资 +20%
-            if (actor.hasTrait("TyGengu3")) promotionChance += 0.06f;  // 武道奇才 +70%
+            if (actor.hasTrait("TyGengu1")) promotionChance -= 0.01f;  // 凡人之资 +10%
+            if (actor.hasTrait("TyGengu2")) promotionChance -= 0.03f;  // 小有天资 +20%
+            if (actor.hasTrait("TyGengu3")) promotionChance -= 0.0005f;  // 武道奇才 +70%
             if (actor.hasTrait("TyGengu4")) promotionChance += 0.1f;  // 天生武骨 +100%
             
             // 保证概率不超过100%
